@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+export class Library extends Component {
+  static displayName = Library.name;
 
   constructor(props) {
     super(props);
@@ -40,11 +40,11 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+        : Library.renderForecastsTable(this.state.forecasts);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Полигон для тестирования связи фронта с бжком</h1>
+        <h1 id="tabelLabel" >Полигон для тестирования связи фронта с бэком</h1>
         <p>Тут временно шаблонные данные вижака</p>
         {contents}
       </div>
