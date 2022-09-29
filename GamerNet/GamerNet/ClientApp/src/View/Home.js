@@ -5,9 +5,11 @@ export class Home extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Домашняя страница</h1>
-      </div>
+        <div>
+            <div className="recomended">
+
+            </div>
+        </div>
     );
   }
 }
