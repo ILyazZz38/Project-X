@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import "../custom.css"
 import AccountLogo from "../Source/video-game.png"
 
 export class NavMenu extends Component {
@@ -41,7 +41,7 @@ export class NavMenu extends Component {
                         </NavItem>
                     </ul>
                 </Collapse>
-                <Link to="/Games">
+                <Link to="/Account">
                     <circle className="account-button">
                         <img className="account-button-img" src={AccountLogo}/>
                     </circle>
