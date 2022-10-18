@@ -6,7 +6,7 @@ export class Games extends Component {
   render() {
     return (
       <div>
-        <h1>Временно пусто</h1>
+        <h1>Временно пусто</h1>            
       </div>
     );
   }
