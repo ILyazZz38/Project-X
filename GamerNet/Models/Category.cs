@@ -1,4 +1,4 @@
-﻿namespace GamerNet.Models
+﻿namespace Models
 {
     public class Category
     {
