@@ -25,13 +25,13 @@ export class NavMenu extends Component {
   render() {
     return (
         <header>
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
+            <Navbar className="navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3" container light>
                 <NavbarBrand tag={Link} to="/">GamerNet</NavbarBrand>
                 <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                 <Collapse className="d-sm-inline-flex" isOpen={!this.state.collapsed} navbar>
                     <ul className="navbar-nav flex-grow">
                         <NavItem>
-                            <NavLink tag={Link} className="nav-item active" to="/">Главная</NavLink>
+                            <NavLink tag={Link} className="nav-item" to="/">Главная</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} className="nav-item" to="/Games">Игры</NavLink>
