@@ -99,6 +99,7 @@ app.UseCors(builder => builder
             .AllowAnyMethod()
             .AllowAnyHeader());
 
+app.UseAuthentication();    // аутентификация
 app.UseAuthorization();
 
 app.MapControllers();
