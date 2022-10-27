@@ -7,6 +7,12 @@ namespace Back_GamerNet.Interfaces
     public interface IUserService
     {
         public ContextApplication Context { get; set; }
-        public ApplicationUser GetUser(string clientId, bool IsWithComputer);
+        /// <summary>
+        /// Получение данных пользователя
+        /// </summary>
+        /// <param name="clientId">Id клиент</param>
+        /// <param name="IsWithComputer">Получить данные компьютера пользователя?</param>
+        /// <returns></returns>
+        public Task<ApplicationUser> GetUser(string clientId, bool IsWithComputer);
     }
 }

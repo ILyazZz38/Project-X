@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Back_GamerNet.Context;
 using Models;
+using Back_GamerNet.Interfaces;
 
 namespace Back_GamerNet.Controllers
 {
@@ -15,24 +16,29 @@ namespace Back_GamerNet.Controllers
     public class ComputersController : ControllerBase
     {
         private readonly ContextApplication _context;
+        private readonly IComputerService service;
 
-        public ComputersController(ContextApplication context)
+        public ComputersController(ContextApplication context, IComputerService computerService)
         {
             _context = context;
+            service = computerService;
         }
 
-        // GET: api/Computers
+        /// <summary>
+        /// GET: api/Computers 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Computer>>> GetComputers()
         {
-            return await _context.Computers.ToListAsync();
+            return await service.GetComputers();
         }
 
         // GET: api/Computers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Computer>> GetComputer(int id)
         {
-            var computer = await _context.Computers.FindAsync(id);
+            var computer = await service.GetComputerAsync(id);
 
             if (computer == null)
             {
@@ -45,21 +51,20 @@ namespace Back_GamerNet.Controllers
         // PUT: api/Computers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutComputer(int id, Computer computer)
+        public async Task<IActionResult> ChangeComputer(int id, Computer computer)
         {
             if (id != computer.Id)
             {
                 return BadRequest();
             }
-
-            _context.Entry(computer).State = EntityState.Modified;
-
+            
             try
             {
-                await _context.SaveChangesAsync();
+                await service.ChangeComputer(computer);
             }
             catch (DbUpdateConcurrencyException)
             {
+
                 if (!ComputerExists(id))
                 {
                     return NotFound();
@@ -69,33 +74,36 @@ namespace Back_GamerNet.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
         }
 
         // POST: api/Computers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Computer>> PostComputer(Computer computer)
+        public async Task<ActionResult<Computer>> AddComputer(Computer computer)
         {
-            _context.Computers.Add(computer);
-            await _context.SaveChangesAsync();
+            int count = await service.AddComputer(computer);
+            if (count > 0)
+                return CreatedAtAction("AddComputer", new { id = computer.Id }, computer);
+            else
+                return Problem();
 
-            return CreatedAtAction("GetComputer", new { id = computer.Id }, computer);
         }
 
         // DELETE: api/Computers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComputer(int id)
         {
-            var computer = await _context.Computers.FindAsync(id);
-            if (computer == null)
+            var isDelete = await service.DeleteComputerAsync(id);
+            if (!isDelete)
             {
                 return NotFound();
             }
 
-            _context.Computers.Remove(computer);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
