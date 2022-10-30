@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import Slider from '../components/Slider'
 
 export class Home extends Component {
   static displayName = Home.name;
 
   render() {
     return (
-      <Slider/>
+      <div>
+        <h1>Home pages</h1>
+      </div>
     );
   }
 }
