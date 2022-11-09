@@ -1,14 +1,14 @@
-﻿namespace GamerNet.Models
+﻿namespace Models
 {
     public class Game
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
         public int Id { get; set; }
-        public int CaptureId { get; set; }
+        public Capture? Capture { get; set; }
         public List<Category> Category { get; set; }
         public int Description { get; set; }
-        //List<GraphicsCard> GraphicsCard { get; set; }
-        //List<Processor> Processor { get; set; }
+        public List<VideoCard> VideoCard { get; set; }
+        public List<Processor> Processor { get; set; }
         //List<Review> Review { get; set; }
     }
 }
