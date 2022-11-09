@@ -1,10 +1,20 @@
 using Back_GamerNet.Context;
+using Back_GamerNet.Interfaces;
+using Back_GamerNet.Interfaces.Impl;
+using Identity_Core.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 // Add services to the container.
+
+#region DI/IOC
+builder.Services.AddTransient<IComputerService, ComputerService>();
+builder.Services.AddTransient<IGameService, GameService>();
+builder.Services.AddTransient<IUserService, UserService>();
+#endregion
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ContextApplication>(options =>
