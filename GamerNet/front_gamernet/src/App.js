@@ -9,6 +9,8 @@ import ErrorPage from './pages/ErrorPage'
 
 import Navibar from './components/Navibar';
 
+
+
 export default class App extends Component{
   constructor(props) {
     super(props);
