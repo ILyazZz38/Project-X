@@ -19,7 +19,7 @@ export default class App extends Component{
  render() {
   return(
     <Router>
-      <div className="bg-secondary bg-opacity-50 text-white">
+      <div className="bg-primary bg-opacity-50 text-white">
         <Navibar/>
         <Routes>
           <Route path='/' element={<HomePage/>} />

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Slider from '../components/Slider'
 import GameCard from '../components/GameCard';
+import Pagination from '../components/Pagination';
 
 const Gamelist = [
   {
@@ -83,9 +84,10 @@ export class Home extends Component {
         <div className="d-flex bg-black rounded w-25 mx-auto bg-opacity-50">
           <h3 className="mx-auto p-1">ПОПУЛЯРНЫЕ ИГРЫ</h3>
         </div>
-        <div className="d-flex bg-white rounded mx-auto mt-5 me-5 ms-5 overflow-auto bg-opacity-50">
-          <GameCard list={this.game}/>
-        </div>          
+        <div className="d-flex bg-white rounded mx-auto mt-5 me-5 ms-5 overflow-auto bg-opacity-50 ">
+          <GameCard list={this.game}/>                  
+        </div>
+                  
       </div>      
     );
   }

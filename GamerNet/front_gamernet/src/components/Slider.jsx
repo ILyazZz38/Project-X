@@ -17,7 +17,7 @@ export default function Slider(props) {
                                             src={game.img}
                                             style={{"width":"400px", "height":"350px"}}
                                         />
-                                        <div style={{"position": "absolute","left": "0","top": "0", "width":"50%"}}
+                                        <div style={{"position": "absolute","left": "0","top": "0", "width":"auto","max-width": "50%"}}
                                             className="m-3">
                                             <div className="bg-black rounded w-auto bg-opacity-75">
                                                 <h5 className="mx-auto p-1"
@@ -28,12 +28,12 @@ export default function Slider(props) {
                                         
                                         
                                         <div className="bg-black rounded w-auto bg-opacity-75 m-3"
-                                            style={{"position": "absolute","left": "0","bottom": "0"}}>
+                                            style={{"position": "absolute","left": "0","bottom": "0", "max-width": "80%"}}>
                                             <p class="text-center"
                                                 className="m-2"
                                             >{game.discription}
                                             </p>
-                                        </div>                                            
+                                        </div>                                           
                                     </div>                                
                                 </Col>
                                 <Col>
@@ -43,7 +43,7 @@ export default function Slider(props) {
                                             src={game.img}
                                             style={{"width":"400px", "height":"350px"}}
                                         />
-                                        <div style={{"position": "absolute","left": "0","top": "0", "width":"50%"}}
+                                        <div style={{"position": "absolute","left": "0","top": "0", "width":"auto","max-width": "50%"}}
                                             className="m-3">
                                             <div className="bg-black rounded w-auto bg-opacity-75">
                                                 <h5 className="mx-auto p-1"
@@ -53,7 +53,7 @@ export default function Slider(props) {
                                         </div>
                                         
                                         <div className="bg-black rounded w-auto bg-opacity-75 m-3"
-                                            style={{"position": "absolute","left": "0","bottom": "0"}}>
+                                            style={{"position": "absolute","left": "0","bottom": "0", "max-width": "80%"}}>
                                             <p class="text-center"
                                                 className="m-2"
                                             >{game.discription}
