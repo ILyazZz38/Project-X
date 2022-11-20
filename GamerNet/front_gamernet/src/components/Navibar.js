@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import {Nav, Navbar, Button, Modal, Form} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
-
-import Register from './registr';
 
 export default function Navibar() {
     
@@ -19,12 +16,12 @@ export default function Navibar() {
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Navbar.Brand href="/" className="ms-5">
-                    <a class="navbar-brand" href="/">
+                    <a className="navbar-brand" href="/">
                         <img src="https://cdn-icons-png.flaticon.com/512/7297/7297795.png"
                          alt=""
                          width="30"
                          height="30"
-                         class="d-inline-block align-text-top"                            
+                         className="d-inline-block align-text-top"                            
                          />
                         GamerNet
                     </a>
@@ -52,7 +49,7 @@ export default function Navibar() {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Register/>
+                        <h1>Регистрация</h1>
                     </Form>
                 </Modal.Body>
             </Modal>

@@ -1,96 +1,94 @@
 import React, { Component } from 'react';
 
-import Slider from '../components/Slider'
 import GameCard from '../components/GameCard';
-import Pagination from '../components/Pagination';
+import Slider from '../components/Slider'
 
-const Gamelist = [
-  {
-    id:'1',
-    name:'Название игры 1',
-    discription:'Краткое описание игры 1',
-    img: 'https://css-pro.ru/_ld/101/10184.jpg'
-  },
-  {
-    id:'2',
-    name:'Название игры 2 Название игры 2',
-    discription:'Краткое описание игры 2 Краткое описание игры 2',
-    img: 'https://i.playground.ru/p/nkw1dsGtMa4PlnfVbKxkRA.jpeg'
-  },
-  {
-    id:'3',
-    name:'Название игры 3 Название игры 3 Название игры 3',
-    discription:'Краткое описание игры 3 Краткое описание игры 3 Краткое описание игры 3',
-    img: 'https://difmark.com/images/product/2/2/22002/the-surge-2-ps4_orig_6.jpg'
-  },
-  {
-    id:'4',
-    name:'Название игры 4 Название игры 4 Название игры 4 Название игры 4',
-    discription:'Краткое описание игры 4 Краткое описание игры 4 Краткое описание игры 4 Краткое описание игры 4',
-    img: 'https://i.playground.ru/p/nkw1dsGtMa4PlnfVbKxkRA.jpeg'
-  },
-  {
-    id:'5',
-    name:'Название игры 5',
-    discription:'Краткое описание игры 5 Краткое описание игры 5 Краткое описание игры 5 Краткое описание игры 5 Краткое описание игры 5',
-    img: 'https://i.playground.ru/p/nkw1dsGtMa4PlnfVbKxkRA.jpeg'
-  },
-  {
-    id:'6',
-    name:'Название игры 6',
-    discription:'Краткое описание игры 6 Краткое описание игры 6 Краткое описание игры Краткое описание игры 6 Краткое описание игры 6 Краткое описание игры 6',
-    img: 'https://i.playground.ru/p/nkw1dsGtMa4PlnfVbKxkRA.jpeg'
-  },
-  {
-    id:'7',
-    name:'Название игры 7',
-    discription:'Краткое описание игры 7',
-    img: 'https://i.playground.ru/p/nkw1dsGtMa4PlnfVbKxkRA.jpeg'
-  },
-  {
-    id:'8',
-    name:'Название игры 8',
-    discription:'Краткое описание игры 8',
-    img: 'https://i.playground.ru/p/nkw1dsGtMa4PlnfVbKxkRA.jpeg'
-  },
-  {
-    id:'9',
-    name:'Название игры 9',
-    discription:'Краткое описание игры 9',
-    img: 'https://i.playground.ru/p/nkw1dsGtMa4PlnfVbKxkRA.jpeg'
-  },
-  {
-    id:'10',
-    name:'Название игры 10',
-    discription:'Краткое описание игры 10',
-    img: 'https://i.playground.ru/p/nkw1dsGtMa4PlnfVbKxkRA.jpeg'
-  }
-]
-
-export class Home extends Component {
+export class HomePage extends Component {
   constructor(props) {
     super(props);
-    this.game = Gamelist;
+    this.state = {
+      Games: [
+        {
+          id:'1',
+          name:'GTA V',
+          discription:'Мультиплатформенная компьютерная игра в жанре action-adventure с открытым миром, разработанная компанией Rockstar North и изданная компанией Rockstar Games.',
+          img: 'https://compass-ssl.xbox.com/assets/a0/4f/a04f2744-74d9-4668-8263-e0261fbea869.jpg?n=GTA-V_GLP-Page-Hero-1084_1920x1080.jpg'
+        },
+        {
+          id:'2',
+          name:'Cyberpunk 2077',
+          discription:'Игра в жанре action-adventure в открытом мире, разработанная и изданная польской студией CD Projekt. Действие игры происходит в 2077 году в Найт-Сити, вымышленном североамериканском городе из вселенной Cyberpunk.',
+          img: 'https://cdn.igromania.ru/mnt/games/4/9/4/a/d/0/14727/73f7677257f9bfa6_1920xH.jpg'
+        },
+        {
+          id:'3',
+          name:'Counter Strike Global Offensive',
+          discription:'Многопользовательская компьютерная игра, разработанная компаниями Valve и Hidden Path Entertainment. Выпуск игры для персональных компьютеров на операционных системах Windows и macOS, также игровых приставках Xbox 360 и PlayStation 3 состоялся 21 августа 2012 года.',
+          img: 'https://cdn.cloudflare.steamstatic.com/steam/apps/730/capsule_616x353.jpg?t=1668125812'
+        },
+        {
+          id:'4',
+          name:'Red Dead Redemption 2',
+          discription:'Игра в жанрах action-adventure и шутера от третьего лица с открытым миром, разработанная Rockstar Studios и выпущенная Rockstar Games для консолей PlayStation 4 и Xbox One 26 октября 2018 года и для персональных компьютеров под управлением Windows 5 ноября 2019 года.',
+          img: 'https://cdn1.epicgames.com/b30b6d1b4dfd4dcc93b5490be5e094e5/offer/RDR2476298253_Epic_Games_Wishlist_RDR2_2560x1440_V01-2560x1440-2a9ebe1f7ee202102555be202d5632ec.jpg'
+        },
+        {
+          id:'5',
+          name:'Ведьмак 3: Дикая Охота',
+          discription:'Игра в жанре action/RPG, разработанная польской студией CD Projekt RED. Выпущенная 19 мая 2015 года на Windows, PlayStation 4 и Xbox One, затем 15 октября 2019 года на Nintendo Switch, она является повествованием, продолжающим игры «Ведьмак» и «Ведьмак 2: Убийцы королей».',
+          img: 'https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header_russian.jpg?t=1668443314'
+        },
+        {
+          id:'6',
+          name:'Call of Duty: Warzone',
+          discription:'Мультиплатформенная free-to-play компьютерная игра в жанре многопользовательского шутера от первого лица и королевской битвы, разработанная компаниями Infinity Ward и Raven Software и изданная Activision 10 марта 2020 года для ПК, PlayStation 4 и Xbox One.',
+          img: 'https://applespbevent.ru/content/images/2022/03/CoDW.jpg'
+        },
+        {
+          id:'7',
+          name:'Fortnite',
+          discription:'Компьютерная онлайн-игра, разработанная американской компанией Epic Games совместно с People Can Fly и выпущенная в ранний доступ в 2017 году.',
+          img: 'https://static-assets-prod.epicgames.com/competitive/static/webpack/1d89ee10c18f54afa33cf8063c27d7d4.jpg'
+        },
+        {
+          id:'8',
+          name:'Metro Exodus',
+          discription:'Игра в жанре шутера от первого лица, разработанная украинской компанией 4A Games и изданная Deep Silver. Выход игры состоялся 15 февраля 2019 года для игровых платформ ПК, PlayStation 4 и Xbox One.',
+          img: 'https://s3.gaming-cdn.com/images/products/11561/orig/metro-exodus-xbox-one-xbox-series-x-s-xbox-one-xbox-series-x-s-game-microsoft-store-united-states-cover.jpg?v=1653400111'
+        },
+        {
+          id:'9',
+          name:'Minecraft',
+          discription:'Компьютерная инди-игра в жанре песочницы, созданная шведским программистом Маркусом Перссоном и выпущенная его компанией Mojang AB.',
+          img: 'https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_Minecraft.jpg'
+        },
+        {
+          id:'10',
+          name:'Dota 2',
+          discription:'Многопользовательская командная компьютерная игра в жанре MOBA, разработанная и изданная корпорацией Valve. Игра является продолжением DotA — пользовательской карты-модификации для игры Warcraft III: Reign of Chaos и дополнения к ней Warcraft III: The Frozen Throne.',
+          img: 'https://cdn.akamai.steamstatic.com/steam/apps/570/capsule_616x353.jpg?t=1650611880'
+        }
+      ]
+    }
   }
-  static displayName = Home.name;
+  static displayName = HomePage.name;
 
   render() {
     return (
       <div>
         <div className="d-flex bg-black rounded w-50 mx-auto bg-opacity-50 mt-5 ">
           <h3 className="mx-auto p-1">ИГРЫ ПО ВАШИМ ПРЕДПОЧТЕНИЯМ</h3>
-        </div>        
-        <Slider list={this.game}/>
+        </div>
+        <Slider gamesList={this.state.Games}/>
         <div className="d-flex bg-black rounded w-25 mx-auto bg-opacity-50">
           <h3 className="mx-auto p-1">ПОПУЛЯРНЫЕ ИГРЫ</h3>
         </div>
         <div className="d-flex bg-white rounded mx-auto mt-5 me-5 ms-5 overflow-auto bg-opacity-50 ">
-          <GameCard list={this.game}/>                  
-        </div>
-                  
+          <GameCard gamesList={this.state.Games}/>                  
+        </div>                  
       </div>      
     );
   }
 }
 
-export default Home;
+export default HomePage;
