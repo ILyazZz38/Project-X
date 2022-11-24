@@ -20,14 +20,122 @@ export default class App extends Component{
           name:'GTA V',
           discription:'Мультиплатформенная компьютерная игра в жанре action-adventure с открытым миром, разработанная компанией Rockstar North и изданная компанией Rockstar Games.',
           img: 'https://compass-ssl.xbox.com/assets/a0/4f/a04f2744-74d9-4668-8263-e0261fbea869.jpg?n=GTA-V_GLP-Page-Hero-1084_1920x1080.jpg',
-          rating: '4,6'
+          rating: '4,6',
+          minrequirements: {
+            cpu: [
+              {
+              id:'718',
+              manufacturer: 'Intel',
+              name: 'Intel Core 2 Quad Q6600'
+              },
+              {
+                id:'911',
+                manufacturer: 'AMD',
+                name: 'AMD Phenom II X4 N950'
+                }
+            ],
+            videocards: [
+              {
+                id:'552',
+                manufacturer: 'NVIDIA',
+                name: 'NVIDIA GeForce 9800M GT'
+              },
+              {
+                id:'482',
+                manufacturer: 'AMD',
+                name: 'ATI Mobility Radeon HD 4870'
+              }
+          ],
+            ram : '4',          
+          },
+          recrements: {
+            cpu: [
+              {
+              id:'396',
+              manufacturer: 'Intel',
+              name: 'Intel Core i5-3470'
+              },
+              {
+                id:'399',
+                manufacturer: 'AMD',
+                name: 'AMD FX-8350'
+                }
+            ],
+            videocards: [
+              {
+                id:'375',
+                manufacturer: 'NVIDIA',
+                name: 'NVIDIA GeForce GTX 660M'
+              },
+              {
+                id:'355',
+                manufacturer: 'AMD',
+                name: 'AMD Radeon HD 7870M'
+              }
+          ],
+            ram: '8'
+          }
         },
         {
           id:'2',
           name:'Cyberpunk 2077',
           discription:'Игра в жанре action-adventure в открытом мире, разработанная и изданная польской студией CD Projekt. Действие игры происходит в 2077 году в Найт-Сити, вымышленном североамериканском городе из вселенной Cyberpunk.',
           img: 'https://cdn.igromania.ru/mnt/games/4/9/4/a/d/0/14727/73f7677257f9bfa6_1920xH.jpg',
-          rating: '4,1'
+          rating: '4,1',
+          minrequirements: {
+            cpu: [
+              {
+              id:'369',
+              manufacturer: 'Intel',
+              name: 'Intel Core i5-3570K'
+              },
+              {
+                id:'399',
+                manufacturer: 'AMD',
+                name: 'AMD FX-8350'
+                }
+            ],
+            videocards: [
+              {
+                id:'156',
+                manufacturer: 'NVIDIA',
+                name: 'NVIDIA GeForce GTX 970'
+              },
+              {
+                id:'165',
+                manufacturer: 'AMD',
+                name: 'AMD Radeon RX 470'
+              }
+          ],
+            ram : '8',          
+          },
+          recrements: {
+            cpu: [
+              {
+              id:'231',
+              manufacturer: 'Intel',
+              name: 'Intel Core i7-4790'
+              },
+              {
+                id:'243',
+                manufacturer: 'AMD',
+                name: 'AMD Ryzen 3 3300X'
+                }
+            ],
+            videocards: [
+              {
+                id:'135',
+                manufacturer: 'NVIDIA',
+                name: 'NVIDIA GeForce GTX 1060'
+              },
+              {
+                id:'129',
+                manufacturer: 'AMD',
+                name: 'AMD Radeon RX 590'
+              }
+          ],
+            ram: '12'
+          }
         },
         {
           id:'3',
@@ -86,8 +194,74 @@ export default class App extends Component{
           rating: '4,1'
         }
       ],
+      RAM: [
+        {
+          id: '1',
+          number: '1'
+        },
+        {
+          id: '2',
+          number: '2'
+        },
+        {
+          id: '3',
+          number: '3'
+        },
+        {
+          id: '4',
+          number: '4'
+        },
+        {
+          id: '5',
+          number: '6'
+        },
+        {
+          id: '6',
+          number: '8'
+        },
+        {
+          id: '7',
+          number: '12'
+        },
+        {
+          id: '8',
+          number: '16'
+        },
+        {
+          id: '9',
+          number: '24'
+        },
+        {
+          id: '10',
+          number: '32'
+        },
+        {
+          id: '11',
+          number: '48'
+        },
+        {
+          id: '12',
+          number: '64'
+        },
+        {
+          id: '13',
+          number: '96'
+        },
+        {
+          id: '14',
+          number: '128'
+        },
+        {
+          id: '15',
+          number: '192'
+        },
+        {
+          id: '16',
+          number: '256'
+        }
+      ],
       ShowGamePage: false,
-      GameItem: {}        
+      GameItem: {},    
     }
     this.onGamePage = this.onGamePage.bind(this)
   }
@@ -99,7 +273,7 @@ export default class App extends Component{
         <Route path='/' element={<Navibar/>}>
           <Route index element={<HomePage games={this.state.Games} onGamePage={this.onGamePage}/>} />              
           <Route path='Games' element={<GamesPage games={this.state.Games} onGamePage={this.onGamePage}/>} />
-          <Route path='Game' element={<GamePage game={this.state.GameItem}/>} />
+          <Route path='Game' element={<GamePage game={this.state.GameItem} ramItem={this.state.RAM}/>} />
           <Route path='*' element={<ErrorPage/>}/>
         </Route>        
       </Routes>

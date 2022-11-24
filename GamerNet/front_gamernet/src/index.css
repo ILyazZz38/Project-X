@@ -102,3 +102,89 @@ body {
     text-align: center;
     font-weight: bolder;
 }
+.gamepage-one-div {
+    width: auto;
+    height: auto;
+    margin: 2%;
+}
+.gamepage-block {
+    background-color: #727272;
+    border-radius: 20px;
+    width: 30%;
+    height: 500px;
+}
+.gamepage-name-wrapper {
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    width: auto;
+    height: auto;
+
+}
+.gamepage-div-img-params {
+    margin-top: 2%;
+}
+.gamepage-img-params {
+    width: 90%;
+    height: 100%;
+    margin-left: 7%;
+    margin-right: 6%;
+}
+.gamepage-div-discription {
+    border-radius: 10px;
+    margin-top: 2%;
+    margin-left: 7%;
+    margin-right: 6%;
+    width: 90%;
+    height: auto;
+}
+.gamepage-block-will-fit {
+    background-color: #727272;
+    border-radius: 20px;
+    width: 100%;
+    height: auto;
+}
+.gamepage-will-fit-div {
+
+}
+.gamepage-will-fit-text {
+    text-align: center;
+    margin-top: 1%;
+}
+.text-color-dark {
+    color: #000;
+}
+.gamepage-div-control-inputs {
+    width: 90%;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.tabl-for-requirements {
+    width: 95%;
+    margin-left: 2.5%;
+    color: #000;
+}
+.tabl-for-minrequirements {
+    border-radius: 20px;
+    margin-right: 2.5%;
+}
+.tabl-for-recrequirements {
+    border-radius: 20px;
+    margin-left: 2.5%;
+}
+.name-params-tabl {
+    font-weight: bold;
+}
+.gamepage-will-fit-text-row {
+    margin-top: 5%;
+}
+.border-bottom-yes {
+    border-bottom: 1px dashed black;
+    border-width: 3px;
+}
+.margin-ram {
+    margin-left: 20%;
+}
