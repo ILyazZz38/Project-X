@@ -45,38 +45,38 @@ const Navibar = () => {
             </Navbar>
 
             <Outlet/>
-            
-            <Modal show={show2} onHide={handleClose2}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Регистрация</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <h1>Регистрация</h1>
-                    </Form>
-                </Modal.Body>
-            </Modal>
 
-
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} className="modal-window-mardin">
                 <Modal.Header closeButton>
                     <Modal.Title>Авторизация</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group controlId="fromBasicLogin">
-                            <Form.Label>Никнейм/Login</Form.Label>
+                            <Form.Label>Login/Никнейм</Form.Label>
                             <Form.Control type="login" placeholder="Введите логин"/>
-                            <Form.Text className="text-muted">Сюда что-нибудь можно написать</Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="fromBasicPassword">
-                            <Form.Label>Пароль/Password</Form.Label>
+                        <Form.Group controlId="fromBasicPassword" className="mt-3">
+                            <Form.Label>Password/Пароль</Form.Label>
                             <Form.Control type="password" placeholder="Введите пароль"/>
-                            <Form.Text className="text-muted">Пароль должен содержать ваш пароль</Form.Text>
+                            <Form.Text className="text-muted">Пароль должен состоять минимум из 8 символов и  содержать 1 из знаков !"№;%:?*</Form.Text>
                         </Form.Group>
-                        <Form.Group>
-                            <Button variant="primary" className="mr-2" onClick={handleShow2}>Зарегистрироваться</Button>
-                            <Button variant="primary" className="mx-5" onClick={handleClose}>Войти</Button>
+                        <Form.Group className="mt-3">
+                            <Button variant="dark" className="modal-avt-button-centre" onClick={handleClose}>Войти</Button>                            
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={show2} onHide={handleClose2}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Регистрация</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="fromBasicEmail" >
+                            <Form.Label>Электранная почта</Form.Label>
+                            <Form.Control type="email" placeholder="Введите почту"/>
                         </Form.Group>
                     </Form>
                 </Modal.Body>

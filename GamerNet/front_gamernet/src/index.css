@@ -182,9 +182,17 @@ body {
     margin-top: 5%;
 }
 .border-bottom-yes {
-    border-bottom: 1px dashed black;
+    border-bottom: 1px solid black;
     border-width: 3px;
 }
 .margin-ram {
     margin-left: 20%;
+}
+.modal-window-mardin {
+    margin-top: 10%;
+}
+.modal-avt-button-centre {
+    width: 20%;
+    margin-left: 38%;
+    margin-right: 38%;
 }
