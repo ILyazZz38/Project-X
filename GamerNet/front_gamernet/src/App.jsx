@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Router, Routes, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
 import HomePage from './pages/HomePage'
 import GamesPage from './pages/GamesPage'

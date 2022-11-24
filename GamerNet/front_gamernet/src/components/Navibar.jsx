@@ -48,7 +48,7 @@ const Navibar = () => {
 
             <Modal show={show} onHide={handleClose} className="modal-window-mardin">
                 <Modal.Header closeButton>
-                    <Modal.Title>Авторизация</Modal.Title>
+                    <Modal.Title className="modal-aut-text-centre">Авторизация</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -58,25 +58,37 @@ const Navibar = () => {
                         </Form.Group>
                         <Form.Group controlId="fromBasicPassword" className="mt-3">
                             <Form.Label>Password/Пароль</Form.Label>
-                            <Form.Control type="password" placeholder="Введите пароль"/>
-                            <Form.Text className="text-muted">Пароль должен состоять минимум из 8 символов и  содержать 1 из знаков !"№;%:?*</Form.Text>
+                            <Form.Control type="password" placeholder="Введите пароль"/>                          
                         </Form.Group>
                         <Form.Group className="mt-3">
+                            <p className="no-account" onClick={handleShow2}>У меня нет аккаунта!</p>
                             <Button variant="dark" className="modal-avt-button-centre" onClick={handleClose}>Войти</Button>                            
                         </Form.Group>
                     </Form>
                 </Modal.Body>
             </Modal>
 
-            <Modal show={show2} onHide={handleClose2}>
+            <Modal show={show2} onHide={handleClose2} className="modal-window-mardin">
                 <Modal.Header closeButton>
-                    <Modal.Title>Регистрация</Modal.Title>
+                    <Modal.Title className="modal-aut-text-centre">Регистрация</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group controlId="fromBasicEmail" >
+                        <Form.Group controlId="fromBasicEmail">
                             <Form.Label>Электранная почта</Form.Label>
                             <Form.Control type="email" placeholder="Введите почту"/>
+                        </Form.Group>
+                        <Form.Group controlId="fromBasicLogin" className="mt-3">
+                            <Form.Label>Login/Никнейм</Form.Label>
+                            <Form.Control type="login" placeholder="Введите логин"/>
+                        </Form.Group>
+                        <Form.Group controlId="fromBasicPassword" className="mt-3">
+                            <Form.Label>Password/Пароль</Form.Label>
+                            <Form.Control type="password" placeholder="Введите пароль"/>
+                            <Form.Text className="text-muted">Пароль должен состоять минимум из 8 символов и  содержать 1 из знаков !"№;%:?*</Form.Text>                            
+                        </Form.Group>
+                        <Form.Group className="mt-3">
+                            <Button variant="dark" className="modal-reg-button-centre" onClick={handleClose2}>Зарегистрироваться</Button>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
