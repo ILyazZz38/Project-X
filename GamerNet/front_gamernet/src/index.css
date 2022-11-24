@@ -6,8 +6,36 @@ body {
     margin: 0;
 }
 .app-one-div-css {
-    background-color: rgb(150, 0, 0);
+    background-color: rgb(199, 199, 199);
     color: white;
+}
+.link-active-yes {
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.1s;
+}
+.link-active-no {
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.1s;
+}
+.link-active-yes:hover {
+    color: #ffffff;
+    text-decoration: none;
+    transform: scale(1.02);
+}
+.link-active-no:hover {
+    color: #ffffff;
+    text-decoration: none;
+    transform: scale(1.02);
+}
+.navlink-homepage {
+    margin-top: 5%;
+    margin-left: 100px;
+}
+.navlink-gamepage {
+    margin-top: 10%;
+    margin-left: 40px;
 }
 .div-menu-for-sorting{
     width: 300px;
@@ -27,4 +55,50 @@ body {
 }
 .col-games-page {
     width: 25%;
+}
+.img-hover-scale {
+    transition: 0.5s;
+}
+.img-hover-scale:hover {
+    transform: scale(1.07);
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.div-bg-img {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+.border-radius-app {
+    border-radius: 15px;
+}
+.sizing-div {
+    width: 45px;
+    height: 45px;
+}
+.star-for-rating {
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    position: relative;
+    margin-left: 18%;
+    box-shadow: inset;
+}
+.star-for-rating-text {
+    position: absolute;
+    font-size: 12px;
+    color: #000;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: bolder;
 }

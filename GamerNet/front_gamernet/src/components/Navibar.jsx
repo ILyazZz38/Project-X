@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import {Nav, Navbar, Button, Modal, Form} from 'react-bootstrap';
+import {Nav, Navbar, Button, Modal, Form,} from 'react-bootstrap';
+import { NavLink, Outlet } from 'react-router-dom';
 
-export default function Navibar() {
+const Navibar = () => {
     
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
@@ -15,26 +16,27 @@ export default function Navibar() {
     return (
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand href="/" className="ms-5">
-                    <a className="navbar-brand" href="/">
-                        <img src="https://cdn-icons-png.flaticon.com/512/7297/7297795.png"
-                         alt=""
-                         width="30"
-                         height="30"
-                         className="d-inline-block align-text-top"                            
-                         />
-                        GamerNet
-                    </a>
+                <Navbar.Brand className="ms-5">
+                    <NavLink to="/" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                        <h1 className="navbar-brand m-1">
+                            <img src="https://cdn-icons-png.flaticon.com/512/7297/7297795.png"
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-text-top"                            
+                            />
+                            GamerNet
+                        </h1>
+                    </NavLink>                    
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"></Navbar.Toggle>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">
-                            <h5 className="mt-2 ms-5">Главная</h5>
-                        </Nav.Link>
-                        <Nav.Link href="/Games">
-                            <h5 className="mt-2 ms-2">Игры</h5>
-                        </Nav.Link>
+                        <NavLink to="/"className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                            <h5 className="navlink-homepage">Главная</h5>
+                        </NavLink>
+                        <NavLink to="Games" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                            <h5 className="navlink-gamepage">Игры</h5>
+                        </NavLink>
                     </Nav>
                     <Nav>
                         <Button variant="outline-light" className="me-5" onClick={handleShow}>Войти</Button>
@@ -42,7 +44,8 @@ export default function Navibar() {
                 </Navbar.Collapse>
             </Navbar>
 
-
+            <Outlet/>
+            
             <Modal show={show2} onHide={handleClose2}>
                 <Modal.Header closeButton>
                     <Modal.Title>Регистрация</Modal.Title>
@@ -73,7 +76,7 @@ export default function Navibar() {
                         </Form.Group>
                         <Form.Group>
                             <Button variant="primary" className="mr-2" onClick={handleShow2}>Зарегистрироваться</Button>
-                            <Button variant="primary" onClick={handleClose}>Войти</Button>
+                            <Button variant="primary" className="mx-5" onClick={handleClose}>Войти</Button>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -82,3 +85,4 @@ export default function Navibar() {
     )
     
 }
+export default Navibar;

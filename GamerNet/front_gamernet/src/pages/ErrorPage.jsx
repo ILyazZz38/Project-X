@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 
-export class ErrorPage extends Component {
-  static displayName = ErrorPage.name;
+const ErrorPage = () => {
 
-  render() {
     return (
       <div>
         <h1>Ошибка</h1>
@@ -11,6 +9,5 @@ export class ErrorPage extends Component {
       </div>
     );
   }
-}
 
 export default ErrorPage;
