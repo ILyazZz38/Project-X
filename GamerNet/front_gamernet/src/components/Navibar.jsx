@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import {Nav, Navbar, Button, Modal, Form} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import {Nav, Navbar, Button, Modal, Form,} from 'react-bootstrap';
+import { NavLink, Outlet } from 'react-router-dom';
 
-import Register from './registr';
-
-export default function Navibar() {
+const Navibar = () => {
     
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
@@ -18,53 +16,79 @@ export default function Navibar() {
     return (
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand>GamerNet</Navbar.Brand>
+                <Navbar.Brand className="ms-5">
+                    <NavLink to="/" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                        <h1 className="navbar-brand m-1">
+                            <img src="https://cdn-icons-png.flaticon.com/512/7297/7297795.png"
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-text-top"                            
+                            />
+                            GamerNet
+                        </h1>
+                    </NavLink>                    
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"></Navbar.Toggle>
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link><Link to="/home">Главная</Link></Nav.Link>
-                        <Nav.Link><Link to="/Games">Игры</Link></Nav.Link>
-                        <Nav.Link><Link to="/Library">Подойдет ли игра?</Link></Nav.Link>
+                    <Nav className="me-auto">
+                        <NavLink to="/"className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                            <h5 className="navlink-homepage">Главная</h5>
+                        </NavLink>
+                        <NavLink to="Games" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                            <h5 className="navlink-gamepage">Игры</h5>
+                        </NavLink>
                     </Nav>
                     <Nav>
-                        <Button variant="primary" className="mr-2" onClick={handleShow}>Войти</Button>
-                        <Button variant="primary" className="mr-2" onClick={handleShow2}>Регистрация</Button>
+                        <Button variant="outline-light" className="me-5" onClick={handleShow}>Войти</Button>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
 
+            <Outlet/>
 
-            <Modal show={show2} onHide={handleClose2}>
+            <Modal show={show} onHide={handleClose} className="modal-window-mardin">
                 <Modal.Header closeButton>
-                    <Modal.Title>Регистрация</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Register/>
-                    </Form>
-                </Modal.Body>
-            </Modal>
-
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Авторизация</Modal.Title>
+                    <Modal.Title className="modal-aut-text-centre">Авторизация</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group controlId="fromBasicLogin">
-                            <Form.Label>Никнейм/Login</Form.Label>
+                            <Form.Label>Login/Никнейм</Form.Label>
                             <Form.Control type="login" placeholder="Введите логин"/>
-                            <Form.Text className="text-muted">Сюда что-нибудь можно написать</Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="fromBasicPassword">
-                            <Form.Label>Пароль/Password</Form.Label>
+                        <Form.Group controlId="fromBasicPassword" className="mt-3">
+                            <Form.Label>Password/Пароль</Form.Label>
+                            <Form.Control type="password" placeholder="Введите пароль"/>                          
+                        </Form.Group>
+                        <Form.Group className="mt-3">
+                            <p className="no-account" onClick={handleShow2}>У меня нет аккаунта!</p>
+                            <Button variant="dark" className="modal-avt-button-centre" onClick={handleClose}>Войти</Button>                            
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={show2} onHide={handleClose2} className="modal-window-mardin">
+                <Modal.Header closeButton>
+                    <Modal.Title className="modal-aut-text-centre">Регистрация</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="fromBasicEmail">
+                            <Form.Label>Электранная почта</Form.Label>
+                            <Form.Control type="email" placeholder="Введите почту"/>
+                        </Form.Group>
+                        <Form.Group controlId="fromBasicLogin" className="mt-3">
+                            <Form.Label>Login/Никнейм</Form.Label>
+                            <Form.Control type="login" placeholder="Введите логин"/>
+                        </Form.Group>
+                        <Form.Group controlId="fromBasicPassword" className="mt-3">
+                            <Form.Label>Password/Пароль</Form.Label>
                             <Form.Control type="password" placeholder="Введите пароль"/>
-                            <Form.Text className="text-muted">Пароль должен содержать ваш пароль</Form.Text>
+                            <Form.Text className="text-muted">Пароль должен состоять минимум из 8 символов и  содержать 1 из знаков !"№;%:?*</Form.Text>                            
                         </Form.Group>
-                        <Form.Group>
-                            <Button variant="primary" className="mr-2" onClick={handleShow2}>Зарегистрироваться</Button>
-                            <Button variant="primary" onClick={handleClose}>Войти</Button>
+                        <Form.Group className="mt-3">
+                            <Button variant="dark" className="modal-reg-button-centre" onClick={handleClose2}>Зарегистрироваться</Button>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -73,3 +97,4 @@ export default function Navibar() {
     )
     
 }
+export default Navibar;
