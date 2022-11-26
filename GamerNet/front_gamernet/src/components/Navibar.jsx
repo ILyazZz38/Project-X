@@ -6,12 +6,43 @@ const Navibar = () => {
     
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
+    const [cemail, setEmail] = useState("");
+    const [cpassword, setPassword] = useState("");
+    const [cname, setName] = useState("");
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false);setShow2(true)};
     const handleShow = () => setShow(true);
-
+    const handleClose1 = () => setShow(false);    
     const handleClose2 = () => setShow2(false);
-    const handleShow2 = () => setShow2(true);
+    const setemail = (text) => setEmail(text.target.value);
+    const setpassword = (text) => setEmail(text.target.value);
+    const setname = (text) => setEmail(text.target.value);
+
+    const registeruser = async() => {
+        if (cemail.length > 0 && cpassword.length > 0 && cname.length > 0)
+        {
+            const response = await fetch("https://localhost:5001/api/Authenticate/register", {
+                method: "POST",
+                headers: {"accept": "*/*", "Content-Type": "application/json"},
+                body: JSON.stringify({
+                    username : cname,
+                    email : cemail,
+                    password : cpassword,
+                }),
+            })
+            if (response.ok === true) {
+                const data = await response.json()
+                console.log(data);
+                alert("Регистрация прошла успешно");
+            } else {
+                const errorData = await response.json();
+                console.log("errors", errorData);
+                alert("Что-то пошло не так")
+            }
+        }
+        else
+            console.log("else");
+    }
 
     return (
         <>
@@ -46,7 +77,7 @@ const Navibar = () => {
 
             <Outlet/>
 
-            <Modal show={show} onHide={handleClose} className="modal-window-mardin">
+            <Modal show={show} onHide={handleClose1} className="modal-window-mardin">
                 <Modal.Header closeButton>
                     <Modal.Title className="modal-aut-text-centre">Авторизация</Modal.Title>
                 </Modal.Header>
@@ -61,8 +92,8 @@ const Navibar = () => {
                             <Form.Control type="password" placeholder="Введите пароль"/>                          
                         </Form.Group>
                         <Form.Group className="mt-3">
-                            <p className="no-account" onClick={handleShow2}>У меня нет аккаунта!</p>
-                            <Button variant="dark" className="modal-avt-button-centre" onClick={handleClose}>Войти</Button>                            
+                            <p className="no-account" onClick={handleClose}>У меня нет аккаунта!</p>
+                            <Button variant="dark" className="modal-avt-button-centre" onClick={handleClose1}>Войти</Button>                            
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -76,19 +107,19 @@ const Navibar = () => {
                     <Form>
                         <Form.Group controlId="fromBasicEmail">
                             <Form.Label>Электранная почта</Form.Label>
-                            <Form.Control type="email" placeholder="Введите почту"/>
+                            <Form.Control type="email" value={cemail} onChange={setemail} placeholder="Введите почту"/>
                         </Form.Group>
                         <Form.Group controlId="fromBasicLogin" className="mt-3">
                             <Form.Label>Login/Никнейм</Form.Label>
-                            <Form.Control type="login" placeholder="Введите логин"/>
+                            <Form.Control type="login" value={cname} onChange={setname} placeholder="Введите логин"/>
                         </Form.Group>
                         <Form.Group controlId="fromBasicPassword" className="mt-3">
                             <Form.Label>Password/Пароль</Form.Label>
-                            <Form.Control type="password" placeholder="Введите пароль"/>
+                            <Form.Control type="password" value={cpassword} onChange={setpassword} placeholder="Введите пароль"/>
                             <Form.Text className="text-muted">Пароль должен состоять минимум из 8 символов и  содержать 1 из знаков !"№;%:?*</Form.Text>                            
                         </Form.Group>
                         <Form.Group className="mt-3">
-                            <Button variant="dark" className="modal-reg-button-centre" onClick={handleClose2}>Зарегистрироваться</Button>
+                            <Button variant="dark" className="modal-reg-button-centre" onClick={registeruser}>Зарегистрироваться</Button>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
