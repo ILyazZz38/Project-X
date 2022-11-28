@@ -15,8 +15,8 @@ namespace Back_GamerNet.Interfaces.Impl
             var game = new Game();
             if (isWithMin)
                 game = Context.Games
-                    .Include(a => a.VideoCard)
-                    .Include(a => a.Processor)
+                    .Include(a => a.minRequirement)
+                    .Include(a => a.maxRequirement)
                     .FirstOrDefault(a => a.Id == id);
             else
                 Context.Games.Find(id);
@@ -31,8 +31,8 @@ namespace Back_GamerNet.Interfaces.Impl
             var game = new Game();
             if (isWithMin)
                 game = Context.Games
-                    .Include(a => a.VideoCard)
-                    .Include(a => a.Processor)
+                    .Include(a => a.minRequirement)
+                    .Include(a => a.maxRequirement)
                     .FirstOrDefault(a => a.Name == name);
             else
                 game = Context.Games

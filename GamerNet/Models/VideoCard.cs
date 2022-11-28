@@ -6,9 +6,9 @@ namespace Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = "Default";
-        public int Memory { get; set; }
-        public decimal ClockFrequency { get; set; }
+        public int Rank { get; set; }
         public ManufacturerVideoCard Manufacturer { get; set; }
-        public TypeRAM TypeMemory { get; set; }
+        public List<MinRequirement> minRequirements { get; set; }
+        public List<MaxRequirement> maxRequirements { get; set; }
     }
 }
