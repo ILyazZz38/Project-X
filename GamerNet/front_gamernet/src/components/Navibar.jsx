@@ -9,19 +9,20 @@ const Navibar = () => {
     const [cemail, setEmail] = useState("");
     const [cpassword, setPassword] = useState("");
     const [cname, setName] = useState("");
+    const [authuser, setAuthuser] = useState(false)
 
     const handleClose = () => {setShow(false);setShow2(true)};
     const handleShow = () => setShow(true);
     const handleClose1 = () => setShow(false);    
     const handleClose2 = () => setShow2(false);
-    const setemail = (text) => setEmail(text.target.value);
-    const setpassword = (text) => setEmail(text.target.value);
-    const setname = (text) => setEmail(text.target.value);
+    const setemail = (mail) => setEmail(mail.target.value);
+    const setpassword = (pas) => setPassword(pas.target.value);
+    const setname = (name) => setName(name.target.value);
 
     const registeruser = async() => {
         if (cemail.length > 0 && cpassword.length > 0 && cname.length > 0)
         {
-            const response = await fetch("https://localhost:5001/api/Authenticate/register", {
+            const reg = await fetch("https://localhost:5001/api/Authenticate/register", {
                 method: "POST",
                 headers: {"accept": "*/*", "Content-Type": "application/json"},
                 body: JSON.stringify({
@@ -30,19 +31,87 @@ const Navibar = () => {
                     password : cpassword,
                 }),
             })
-            if (response.ok === true) {
-                const data = await response.json()
+            if (reg.ok === true) {
+                const data = await reg.json()
                 console.log(data);
                 alert("Регистрация прошла успешно");
+                setShow2(false);
             } else {
-                const errorData = await response.json();
-                console.log("errors", errorData);
-                alert("Что-то пошло не так")
+                const errorMessage = await reg.json();
+                console.log("Ошибка:", errorMessage);
+                alert("Ошибка, что-то пошле не так")
             }
         }
-        else
-            console.log("else");
+        else {
+            alert("Заполните все поля!")
+        }
+    };
+
+    const authorizatuser = async() => {
+        if (cname.length > 0 && cpassword.length > 0)
+        {
+            const auth = await fetch("https://localhost:5001/api/Authenticate/login", {
+                method: "POST",
+                headers: {"accept": "*/*", "Content-Type": "application/json"},
+                body: JSON.stringify({
+                    username : cname,
+                    password : cpassword,
+                }),
+            })
+            if (auth.ok === true) {
+                const data = await auth.json()
+                localStorage.setItem("token", data.token);
+                console.log(data);
+                setShow (false);                 
+            } else {
+                const errorMessage = await auth.json();
+                console.log("errors", errorMessage);
+                alert("Неверный логин или пароль")
+            }
+        }
+        else{
+            alert("Заполните все поля!")
+        }
     }
+
+    const AuthLogin = async () => {
+        const  token = localStorage.getItem("token");
+        const res = await fetch("https://localhost:5001/api/Authenticate", {
+            method: "GET",
+            headers: {
+                "accept":"text/plain",
+                "Authorization": "Bearer " + token,
+            }
+        })
+        if (res.ok === true) {
+            const data = await res.json();
+            console.log(data);
+            console.log("Авторизован успешно");
+        } else {
+            console.log("Ошибка");
+        }
+    }
+
+    function NoAuthButton(props) {
+        return <Button variant="outline-light" className="me-5" onClick={handleShow}>Войти</Button>;
+    }
+    function AuthButton(props) {
+        return <>
+            <Button variant="outline-light" className="me-5">Профиль</Button>
+            <Button variant="outline-light" className="me-5" onClick={cleatToken}>Выйти</Button>
+        </>;
+    }
+    function AuthNoAuth(props) {
+        if (localStorage.getItem("token") != null) {
+          return <AuthButton />;
+        }
+        return <NoAuthButton />;   
+    }
+    function cleatToken() {        
+        localStorage.clear("token");
+        window.location.reload();
+    }
+
 
     return (
         <>
@@ -70,7 +139,7 @@ const Navibar = () => {
                         </NavLink>
                     </Nav>
                     <Nav>
-                        <Button variant="outline-light" className="me-5" onClick={handleShow}>Войти</Button>
+                        <AuthNoAuth/>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -85,15 +154,16 @@ const Navibar = () => {
                     <Form>
                         <Form.Group controlId="fromBasicLogin">
                             <Form.Label>Login/Никнейм</Form.Label>
-                            <Form.Control type="login" placeholder="Введите логин"/>
+                            <Form.Control type="login" value={cname} onChange={setname} placeholder="Введите логин"/>
                         </Form.Group>
                         <Form.Group controlId="fromBasicPassword" className="mt-3">
                             <Form.Label>Password/Пароль</Form.Label>
-                            <Form.Control type="password" placeholder="Введите пароль"/>                          
+                            <Form.Control type="password" value={cpassword} onChange={setpassword} placeholder="Введите пароль"/>                          
                         </Form.Group>
                         <Form.Group className="mt-3">
                             <p className="no-account" onClick={handleClose}>У меня нет аккаунта!</p>
-                            <Button variant="dark" className="modal-avt-button-centre" onClick={handleClose1}>Войти</Button>                            
+                            <Button variant="dark" className="modal-avt-button-centre" onClick={authorizatuser}>Войти</Button>
+                            <Button variant="dark" className="modal-avt-button-centre" onClick={AuthLogin}>Проверка</Button>                          
                         </Form.Group>
                     </Form>
                 </Modal.Body>
