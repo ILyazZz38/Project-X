@@ -9,5 +9,6 @@
         public int Description { get; set; }
         public MinRequirement? minRequirement { get; set; }
         public MaxRequirement? maxRequirement { get; set; }
+        public int ROM { get; set; }
     }
 }

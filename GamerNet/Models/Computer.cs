@@ -11,6 +11,5 @@ namespace Models
         public VideoCard? VideoCard { get; set; }
         public int? VideoCardId { get; set; }
         public int RAM { get; set; } = 0;
-        public int ROM { get; set; } = 0;
     }
 }

@@ -12,6 +12,5 @@ namespace Models
         public List<VideoCard> VideoCard { get; set; }
         public List<Processor> Processor { get; set; }
         public int RAM { get; set; }
-        public int ROM { get; set; }
     }
 }
