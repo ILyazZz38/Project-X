@@ -22,5 +22,7 @@ namespace Back_GamerNet.Context
 
             base.OnModelCreating(builder);
         }
+        public DbSet<Models.MinRequirement> MinRequirement { get; set; }
+        public DbSet<Models.MaxRequirement> MaxRequirement { get; set; }
     }
 }

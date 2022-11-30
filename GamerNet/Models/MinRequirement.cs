@@ -9,8 +9,10 @@ namespace Models
     public class MinRequirement
     {
         public int Id { get; set; }
-        public List<VideoCard> VideoCard { get; set; }
-        public List<Processor> Processor { get; set; }
-        public int RAM { get; set; }
+        public virtual VideoCard? FirstCard { get; set; }
+        public virtual VideoCard? SecondCard { get; set; }
+        public virtual Processor? FirstProcessor { get; set; }
+        public virtual Processor? SecondProcessor { get; set; }
+        public int RAM { get; set; } = 0;
     }
 }
