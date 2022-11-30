@@ -3,6 +3,7 @@ using System;
 using Back_GamerNet.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Back_GamerNet.Migrations
 {
     [DbContext(typeof(ContextApplication))]
-    partial class ContextApplicationModelSnapshot : ModelSnapshot
+    [Migration("20221130200240_add_secondary_keys")]
+    partial class add_secondary_keys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,10 +311,10 @@ namespace Back_GamerNet.Migrations
                     b.Property<int>("ROM")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("maxRequirementId")
+                    b.Property<int>("maxRequirementId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("minRequirementId")
+                    b.Property<int>("minRequirementId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -536,11 +538,15 @@ namespace Back_GamerNet.Migrations
 
                     b.HasOne("Models.MaxRequirement", "maxRequirement")
                         .WithMany()
-                        .HasForeignKey("maxRequirementId");
+                        .HasForeignKey("maxRequirementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Models.MinRequirement", "minRequirement")
                         .WithMany()
-                        .HasForeignKey("minRequirementId");
+                        .HasForeignKey("minRequirementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Capture");
 
