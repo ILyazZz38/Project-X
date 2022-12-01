@@ -12,6 +12,7 @@ namespace Back_GamerNet.Context
         public DbSet<Processor> Processor { get; set; }
         public DbSet<Capture> Captures { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryGame> CategoryGames { get; set; }
         public DbSet<Game> Games { get; set; }
         public ContextApplication(DbContextOptions<ContextApplication> options) : base(options)
         {

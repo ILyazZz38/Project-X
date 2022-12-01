@@ -33,7 +33,7 @@ namespace Back_GamerNet.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<bool[]>> GetMinRequirement(int id, int PCid)
         {
-            bool[] canPlay = new bool[3];
+            bool[] canPlay = { false, false, false };
             var Game = await _context.Games.FindAsync(id);
             var Computer = await _context.Computers.FindAsync(PCid);
 
@@ -42,14 +42,20 @@ namespace Back_GamerNet.Controllers
             VideoCard FirstCard = Game.minRequirement.FirstCard;
             VideoCard SecondCard = Game.minRequirement.SecondCard;
 
-            if (Computer.Processor.Rank >= FirstProcessor.Rank || Computer.Processor.Rank >= SecondProcessor.Rank)
-                canPlay[0] = true;
-            else
-                canPlay[0] = false;
-            if (Computer.VideoCard.Rank >= FirstCard.Rank || Computer.VideoCard.Rank >= SecondCard.Rank)
-                canPlay[1] = true;
-            else
-                canPlay[1] = false;
+            if (FirstProcessor != null)
+                if (Computer.Processor.Rank >= FirstProcessor.Rank)
+                    canPlay[0] = true;
+            if (SecondProcessor != null)
+                if (Computer.Processor.Rank >= SecondProcessor.Rank)
+                    canPlay[0] = true;
+
+            if (FirstCard != null)
+                if (Computer.VideoCard.Rank >= FirstCard.Rank)
+                    canPlay[1] = true;
+            if (SecondCard != null)
+                if (Computer.VideoCard.Rank >= SecondCard.Rank)
+                    canPlay[1] = true;
+
             if (Computer.RAM >= Game.minRequirement.RAM)
                 canPlay[2] = true;
             else

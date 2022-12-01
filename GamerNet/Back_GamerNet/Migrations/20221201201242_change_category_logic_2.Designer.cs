@@ -3,6 +3,7 @@ using System;
 using Back_GamerNet.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Back_GamerNet.Migrations
 {
     [DbContext(typeof(ContextApplication))]
-    partial class ContextApplicationModelSnapshot : ModelSnapshot
+    [Migration("20221201201242_change_category_logic_2")]
+    partial class change_category_logic_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,8 +319,8 @@ namespace Back_GamerNet.Migrations
                     b.Property<int?>("CaptureId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
+                    b.Property<int?>("Description")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -361,10 +363,10 @@ namespace Back_GamerNet.Migrations
                     b.Property<int>("RAM")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("SecondCardId")
+                    b.Property<int>("SecondCardId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("SecondProcessorId")
+                    b.Property<int>("SecondProcessorId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -397,10 +399,10 @@ namespace Back_GamerNet.Migrations
                     b.Property<int>("RAM")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("SecondCardId")
+                    b.Property<int>("SecondCardId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("SecondProcessorId")
+                    b.Property<int>("SecondProcessorId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -591,11 +593,15 @@ namespace Back_GamerNet.Migrations
 
                     b.HasOne("Models.VideoCard", "SecondCard")
                         .WithMany()
-                        .HasForeignKey("SecondCardId");
+                        .HasForeignKey("SecondCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Models.Processor", "SecondProcessor")
                         .WithMany()
-                        .HasForeignKey("SecondProcessorId");
+                        .HasForeignKey("SecondProcessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("FirstCard");
 
@@ -622,11 +628,15 @@ namespace Back_GamerNet.Migrations
 
                     b.HasOne("Models.VideoCard", "SecondCard")
                         .WithMany()
-                        .HasForeignKey("SecondCardId");
+                        .HasForeignKey("SecondCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Models.Processor", "SecondProcessor")
                         .WithMany()
-                        .HasForeignKey("SecondProcessorId");
+                        .HasForeignKey("SecondProcessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("FirstCard");
 
