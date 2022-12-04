@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Back_GamerNet.Context;
 using Models;
+using Models.Back_GamerNet.Interfaces;
 
 namespace Back_GamerNet.Controllers
 {
@@ -21,11 +22,19 @@ namespace Back_GamerNet.Controllers
             _context = context;
         }
 
+
         // GET: api/Games
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
+        //public async Task<ActionResult<IEnumerable<Game>>> GetGames()
+        //{
+        //    return await _context.Games.ToListAsync();
+        //}
+        public async Task<IEnumerable<Game>> GetGames([FromQuery] PaginateParameters paginateParameters)
         {
-            return await _context.Games.ToListAsync();
+            return _context.Games.ToList()
+                .Skip((paginateParameters.PageNumber - 1) * paginateParameters.PageSize)
+                .Take(paginateParameters.PageSize)
+                .ToList();
         }
 
         // GET: api/Games/5
