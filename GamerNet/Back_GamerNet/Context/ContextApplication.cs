@@ -14,6 +14,8 @@ namespace Back_GamerNet.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryGame> CategoryGames { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<MinRequirement> MinRequirement { get; set; }
+        public DbSet<MaxRequirement> MaxRequirement { get; set; }
         public ContextApplication(DbContextOptions<ContextApplication> options) : base(options)
         {
 
@@ -23,7 +25,6 @@ namespace Back_GamerNet.Context
 
             base.OnModelCreating(builder);
         }
-        public DbSet<Models.MinRequirement> MinRequirement { get; set; }
-        public DbSet<Models.MaxRequirement> MaxRequirement { get; set; }
+        public DbSet<Models.FavoriteCategory> FavoriteCategory { get; set; }
     }
 }
