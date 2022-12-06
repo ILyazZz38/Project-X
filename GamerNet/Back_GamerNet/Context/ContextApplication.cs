@@ -26,5 +26,6 @@ namespace Back_GamerNet.Context
             base.OnModelCreating(builder);
         }
         public DbSet<Models.FavoriteCategory> FavoriteCategory { get; set; }
+        public DbSet<Models.UserInfo> UserInfo { get; set; }
     }
 }
