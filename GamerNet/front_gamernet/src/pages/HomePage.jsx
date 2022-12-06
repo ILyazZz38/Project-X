@@ -18,11 +18,11 @@ export class HomePage extends Component {
           <h3 className="mx-auto p-1">ПОПУЛЯРНЫЕ ИГРЫ</h3>
         </div>
         <div className="d-flex bg-black border-radius-app mx-auto mt-3 me-5 ms-5 overflow-auto bg-opacity-50 ">
-          <GameCard games={this.props.games} onGamePage={this.props.onGamePage}/>                  
+          <GameCard games={this.props.gamesdata} onGamePage={this.props.onGamePage}/>               
         </div>                          
       </div>      
     );
-  }  
+  }
 }
 
 export default HomePage;
