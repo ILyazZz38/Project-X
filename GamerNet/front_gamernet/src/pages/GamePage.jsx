@@ -10,7 +10,7 @@ export class GamePage extends Component {
       <div className="gamepage-one-div">
         <Row>
           <Col  className="col-4 gamepage-block bg-opacity-75">
-          <Card game={game} onGamePage={this.props.onGamePage}/>
+            <CardForGamePage game={this.props.game}/>
           </Col>          
           <Col>
             <Col className="col-4 gamepage-block-will-fit bg-opacity-75 shadow">
@@ -27,7 +27,7 @@ export class GamePage extends Component {
                   <h3 className="gamepage-will-fit-text">Официальные системные требования {this.props.game.name}:</h3>
                   <p className="ms-5">Такое железо советуют разработчики для запуска с минимальными и рекомендуемыми настройками. Эти требования обычно очень приблизительны, но на них можно ориентироваться чтобы понять, какого уровня компьютер потребуется для игры.</p>
                 </div>
-                {/* <RequirementsTabl requirements={this.props.game.minrequirements} recrements={this.props.game.recrements}/> */}
+                <RequirementsTabl requirements={this.props.game.minRequirement} recrements={this.props.game.maxRequirement}/>
               </Row>
             </Col>
           </Col>
