@@ -6,9 +6,7 @@ namespace Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = "Default";
-        public int Memory { get; set; }
-        public decimal ClockFrequency { get; set; }
-        public ManufacturerVideoCard Manufacturer { get; set; }
-        public TypeRAM TypeMemory { get; set; }
+        public int Rank { get; set; } = -1;
+        public virtual ManufacturerVideoCard Manufacturer { get; set; }
     }
 }

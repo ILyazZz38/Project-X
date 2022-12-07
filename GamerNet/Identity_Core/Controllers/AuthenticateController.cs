@@ -3,6 +3,7 @@ using Identity_Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -133,9 +134,11 @@ namespace Identity_Server.Controller
         /// <returns></returns>
         [Authorize]
         [HttpGet]
-        public async Task<string> CheckLogin()
+        public async Task<ActionResult<ApplicationUser>> CheckLogin()
         {
-            return HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ApplicationUser applicationUser = await _userManager.FindByIdAsync(userId);
+            return applicationUser;
         }
 
         [HttpPost]

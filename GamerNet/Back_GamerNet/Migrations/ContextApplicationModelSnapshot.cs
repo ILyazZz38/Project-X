@@ -17,7 +17,7 @@ namespace Back_GamerNet.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -248,18 +248,36 @@ namespace Back_GamerNet.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("GameId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Models.CategoryGame", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("GameId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("GameId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("CategoryGames");
                 });
 
             modelBuilder.Entity("Models.Computer", b =>
@@ -276,9 +294,6 @@ namespace Back_GamerNet.Migrations
                     b.Property<int>("RAM")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TypeRAM")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("VideoCardId")
                         .HasColumnType("integer");
 
@@ -289,6 +304,29 @@ namespace Back_GamerNet.Migrations
                     b.HasIndex("VideoCardId");
 
                     b.ToTable("Computers");
+                });
+
+            modelBuilder.Entity("Models.FavoriteCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("FavoriteCategory");
                 });
 
             modelBuilder.Entity("Models.Game", b =>
@@ -302,18 +340,103 @@ namespace Back_GamerNet.Migrations
                     b.Property<int?>("CaptureId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Description")
-                        .HasColumnType("integer");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("ROM")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("maxRequirementId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("minRequirementId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CaptureId");
 
+                    b.HasIndex("maxRequirementId");
+
+                    b.HasIndex("minRequirementId");
+
                     b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("Models.MaxRequirement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FirstCardId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FirstProcessorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RAM")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SecondCardId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SecondProcessorId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FirstCardId");
+
+                    b.HasIndex("FirstProcessorId");
+
+                    b.HasIndex("SecondCardId");
+
+                    b.HasIndex("SecondProcessorId");
+
+                    b.ToTable("MaxRequirement");
+                });
+
+            modelBuilder.Entity("Models.MinRequirement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FirstCardId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FirstProcessorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RAM")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SecondCardId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SecondProcessorId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FirstCardId");
+
+                    b.HasIndex("FirstProcessorId");
+
+                    b.HasIndex("SecondCardId");
+
+                    b.HasIndex("SecondProcessorId");
+
+                    b.ToTable("MinRequirement");
                 });
 
             modelBuilder.Entity("Models.Processor", b =>
@@ -324,18 +447,6 @@ namespace Back_GamerNet.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("ClockFrequency")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("CountCors")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CountThreads")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("GameId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Manufacturer")
                         .HasColumnType("integer");
 
@@ -343,11 +454,39 @@ namespace Back_GamerNet.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Rank")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId");
-
                     b.ToTable("Processor");
+                });
+
+            modelBuilder.Entity("Models.UserInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("Birthday")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("Sex")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("photo")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("UserInfo");
                 });
 
             modelBuilder.Entity("Models.VideoCard", b =>
@@ -358,28 +497,17 @@ namespace Back_GamerNet.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("ClockFrequency")
-                        .HasColumnType("numeric");
-
-                    b.Property<int?>("GameId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Manufacturer")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Memory")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("TypeMemory")
+                    b.Property<int>("Rank")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameId");
 
                     b.ToTable("VideoCards");
                 });
@@ -444,11 +572,19 @@ namespace Back_GamerNet.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Models.Category", b =>
+            modelBuilder.Entity("Models.CategoryGame", b =>
                 {
-                    b.HasOne("Models.Game", null)
-                        .WithMany("Category")
+                    b.HasOne("Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("Models.Game", "Game")
+                        .WithMany()
                         .HasForeignKey("GameId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("Models.Computer", b =>
@@ -468,36 +604,111 @@ namespace Back_GamerNet.Migrations
                     b.Navigation("VideoCard");
                 });
 
+            modelBuilder.Entity("Models.FavoriteCategory", b =>
+                {
+                    b.HasOne("Identity_Core.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Models.Game", b =>
                 {
                     b.HasOne("Models.Capture", "Capture")
                         .WithMany()
                         .HasForeignKey("CaptureId");
 
+                    b.HasOne("Models.MaxRequirement", "maxRequirement")
+                        .WithMany()
+                        .HasForeignKey("maxRequirementId");
+
+                    b.HasOne("Models.MinRequirement", "minRequirement")
+                        .WithMany()
+                        .HasForeignKey("minRequirementId");
+
                     b.Navigation("Capture");
+
+                    b.Navigation("maxRequirement");
+
+                    b.Navigation("minRequirement");
                 });
 
-            modelBuilder.Entity("Models.Processor", b =>
+            modelBuilder.Entity("Models.MaxRequirement", b =>
                 {
-                    b.HasOne("Models.Game", null)
-                        .WithMany("Processor")
-                        .HasForeignKey("GameId");
+                    b.HasOne("Models.VideoCard", "FirstCard")
+                        .WithMany()
+                        .HasForeignKey("FirstCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Processor", "FirstProcessor")
+                        .WithMany()
+                        .HasForeignKey("FirstProcessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.VideoCard", "SecondCard")
+                        .WithMany()
+                        .HasForeignKey("SecondCardId");
+
+                    b.HasOne("Models.Processor", "SecondProcessor")
+                        .WithMany()
+                        .HasForeignKey("SecondProcessorId");
+
+                    b.Navigation("FirstCard");
+
+                    b.Navigation("FirstProcessor");
+
+                    b.Navigation("SecondCard");
+
+                    b.Navigation("SecondProcessor");
                 });
 
-            modelBuilder.Entity("Models.VideoCard", b =>
+            modelBuilder.Entity("Models.MinRequirement", b =>
                 {
-                    b.HasOne("Models.Game", null)
-                        .WithMany("VideoCard")
-                        .HasForeignKey("GameId");
+                    b.HasOne("Models.VideoCard", "FirstCard")
+                        .WithMany()
+                        .HasForeignKey("FirstCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.Processor", "FirstProcessor")
+                        .WithMany()
+                        .HasForeignKey("FirstProcessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.VideoCard", "SecondCard")
+                        .WithMany()
+                        .HasForeignKey("SecondCardId");
+
+                    b.HasOne("Models.Processor", "SecondProcessor")
+                        .WithMany()
+                        .HasForeignKey("SecondProcessorId");
+
+                    b.Navigation("FirstCard");
+
+                    b.Navigation("FirstProcessor");
+
+                    b.Navigation("SecondCard");
+
+                    b.Navigation("SecondProcessor");
                 });
 
-            modelBuilder.Entity("Models.Game", b =>
+            modelBuilder.Entity("Models.UserInfo", b =>
                 {
-                    b.Navigation("Category");
+                    b.HasOne("Identity_Core.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
 
-                    b.Navigation("Processor");
-
-                    b.Navigation("VideoCard");
+                    b.Navigation("ApplicationUser");
                 });
 #pragma warning restore 612, 618
         }
