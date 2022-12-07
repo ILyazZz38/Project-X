@@ -272,7 +272,7 @@ class ResponseData extends Component {
             number: '256'
           }
         ],
-        GameItem: [],
+        GameItem: {},
     };
     this.onGamePage = this.onGamePage.bind(this)
   }
@@ -281,12 +281,26 @@ class ResponseData extends Component {
     this.getGames();
   }
 
-  getGames() {
-    axios
-      .get(`https://localhost:7150/api/Games?PageNumber=1&PageSize=4`)
-      .then(response => this.setState({ game: response.data }))
-      .catch(error => console.log(error));
-  }
+  getGames = () => {
+    const res = fetch("https://localhost:7150/api/Games?PageNumber=1&PageSize=4", {
+        method: "GET",
+        headers: {
+            "accept":"text/json"
+        }
+    })
+    .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+    .then((data) => {
+        this.setState({ game: data });
+        console.log("DATAGAME STORED");
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+      });
+}
+
 
   render() {
     return (
@@ -294,14 +308,14 @@ class ResponseData extends Component {
       <Routes>
         <Route path='/' element={<Navibar/>}>
           <Route index element={<HomePage games={this.state.Games} onGamePage={this.onGamePage} gamesdata={this.state.game}/>}/>
-          <Route path='Profile' element={<AccountPage ramItem={this.state.RAM}/>}/>              
+          <Route path='Profile' element={<AccountPage ramItem={this.state.RAM}/>}/>
           <Route path='Games' element={<GamesPage onGamePage={this.onGamePage}/>} games={this.state.game} />
           <Route path='Game' element={<GamePage game={this.state.GameItem} ramItem={this.state.RAM}/>} />
           <Route path='*' element={<ErrorPage/>}/>
-        </Route>        
+        </Route>
       </Routes>
     </div>
-    )      
+    )
   }
   onGamePage(game) {
     this.setState({GameItem:game})
