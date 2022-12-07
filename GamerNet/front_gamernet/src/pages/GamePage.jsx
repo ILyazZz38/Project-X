@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import CardForGamePage from '../components/CardForGamePage'
 import ComputerReq from '../components/ComputerReq'
+import NormalComputerReq from '../components/NormalCompReq'
 import RequirementsTabl from '../components/RequirementsTabl'
 
 export class GamePage extends Component {
@@ -20,7 +21,7 @@ export class GamePage extends Component {
                 </div>
               </Row>
               <Row className="gamepage-div-control-inputs">
-                <ComputerReq ramItem={this.props.ramItem}/>
+                <NormalComputerReq ramItem={this.props.ramItem}/>
               </Row>
               <Row className="p-5">
                 <div>
