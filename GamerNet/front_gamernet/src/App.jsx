@@ -294,7 +294,7 @@ class ResponseData extends Component {
       <Routes>
         <Route path='/' element={<Navibar/>}>
           <Route index element={<HomePage games={this.state.Games} onGamePage={this.onGamePage} gamesdata={this.state.game}/>}/>
-          <Route path='Profile' element={<AccountPage/>}/>              
+          <Route path='Profile' element={<AccountPage ramItem={this.state.RAM}/>}/>              
           <Route path='Games' element={<GamesPage onGamePage={this.onGamePage}/>} games={this.state.game} />
           <Route path='Game' element={<GamePage game={this.state.GameItem} ramItem={this.state.RAM}/>} />
           <Route path='*' element={<ErrorPage/>}/>

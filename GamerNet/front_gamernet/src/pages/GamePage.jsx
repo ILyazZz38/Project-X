@@ -10,7 +10,7 @@ export class GamePage extends Component {
       <div className="gamepage-one-div">
         <Row>
           <Col  className="col-4 gamepage-block bg-opacity-75">
-            <CardForGamePage game={this.props.game}/>
+            {/* <CardForGamePage game={this.props.game}/> */}
           </Col>          
           <Col>
             <Col className="col-4 gamepage-block-will-fit bg-opacity-75 shadow">
