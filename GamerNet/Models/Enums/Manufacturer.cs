@@ -9,8 +9,7 @@ namespace Models.Enums
     public enum ManufacturerProcessor
     {
         AMD,
-        Intel,
-        Baikal
+        Intel
     }
     public enum ManufacturerVideoCard
     {

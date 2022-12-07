@@ -1,44 +1,29 @@
-import React from 'react';
-import { Carousel } from 'react-bootstrap';
+import React, { Component } from 'react'
+import { Carousel, Row, Col } from 'react-bootstrap';
+import CardForSlider from './CardForSlider';
 
-export default function Slider() {
-    
+export class Slider extends Component {
+  render() {
     return (
-        <Carousel style={{'height':'450px', 'width':'800px'}}>
-            <Carousel.Item>
-                <img
-                    className="d-block w-100"
-                    src="https://css-pro.ru/_ld/101/10184.jpg"
-                    alt="Тут должен быть первый слайд"
-                />
-                <Carousel.Caption>
-                    <h3>Counter-Strike: Source</h3>
-                    <p>Игра в жанре многопользовательского командного шутера от первого лица, разработанная компаниями Valve</p>
-                </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-                <img
-                    className="d-block w-100"
-                    src="https://css-pro.ru/_ld/101/10184.jpg"
-                    alt="Тут должен быть первый слайд"
-                />
-                <Carousel.Caption>
-                    <h3>Counter-Strike: Source</h3>
-                    <p>Игра в жанре многопользовательского командного шутера от первого лица, разработанная компаниями Valve</p>
-                </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-                <img
-                    className="d-block w-100"
-                    src="https://css-pro.ru/_ld/101/10184.jpg"
-                    alt="Тут должен быть первый слайд"
-                />
-                <Carousel.Caption>
-                    <h3>Counter-Strike: Source</h3>
-                    <p>Игра в жанре многопользовательского командного шутера от первого лица, разработанная компаниями Valve</p>
-                </Carousel.Caption>
-            </Carousel.Item>
-        </Carousel>
+       <div className="div-bg-img">
+            <Carousel style={{"height":"420px"}}>
+            {this.props.games.map(el =>(                   
+                <Carousel.Item>                        
+                    <Row className="mt-4 mx-auto gx-3">                                                        
+                        <Col>
+                            <CardForSlider game={el}/>
+                        </Col>                                                                                    
+                    </Row>
+                </Carousel.Item>
+                ))}                    
+            </Carousel>           
+        </div>
     )
-    
+  }
 }
+
+export default Slider
+
+
+
+

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Back_GamerNet.Context;
 using Models;
+using Models.Back_GamerNet.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back_GamerNet.Controllers
 {
@@ -21,12 +23,37 @@ namespace Back_GamerNet.Controllers
             _context = context;
         }
 
+
         // GET: api/Games
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
+        public async Task<IEnumerable<Game>> GetGames([FromQuery] PaginateParameters paginateParameters)
         {
-            return await _context.Games.ToListAsync();
+            return _context.Games.ToList()
+                .Skip((paginateParameters.PageNumber - 1) * paginateParameters.PageSize)
+                .Take(paginateParameters.PageSize)
+                .ToList();
         }
+
+        //// GET: api/FindGame
+        //[HttpGet]
+        //public async Task<IEnumerable<Game>> FindGames(int?[] category, string name)
+        //{
+        //    var games = _context.Games.Where(x => x.Name.Contains(name)).ToList();
+        //    return games;
+        //}
+
+        //// GET: api/Games
+        //[HttpGet]
+        //public async Task<IEnumerable<Game>> RecomendGames(string UserId)
+        //{
+        //    FavoriteCategory[] favoriteCategories = _context.FavoriteCategory.Where(x => x.ApplicationUserId == UserId).ToArray();
+        //    CategoryGame[] categoryGames = new CategoryGame[1];
+        //    for (int i = 0; i <= favoriteCategories.Length; i++)
+        //    {
+        //        categoryGames[i] = _context.CategoryGames.Where(x => x.CategoryId == favoriteCategories[i].CategoryId)
+        //    }
+        //    return await _context.Games.Where(x => x.).ToListAsync();
+        //}
 
         // GET: api/Games/5
         [HttpGet("{id}")]

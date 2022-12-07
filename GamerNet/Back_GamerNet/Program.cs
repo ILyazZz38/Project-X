@@ -18,7 +18,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ContextApplication>(options =>
-            options.UseNpgsql(connection));
+            options.UseNpgsql(connection).UseLazyLoadingProxies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -63,6 +63,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
 app.UseAuthorization();
 
