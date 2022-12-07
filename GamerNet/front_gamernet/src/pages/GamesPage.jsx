@@ -111,7 +111,7 @@ class Cards extends React.Component {
 
   getGames(gameId) {
     axios
-      .get(`https://localhost:7150/api/Games?PageNumber=${gameId}&PageSize=3`)
+      .get(`https://localhost:7150/api/Games?PageNumber=${gameId}&PageSize=4`)
       .then(response => this.setState({ game: response.data }))
       .catch(error => console.log(error));
   }
@@ -121,7 +121,7 @@ class Cards extends React.Component {
       <Row className="pb-2 mt-1 w-100 gx-3">
         { this.state.game.map(game =>
           <Col className="m-3 col-3 mx-auto" style={{"width":"300px", "height":"180px"}}>
-            <CardGames game={game}/>
+            <CardGames game={game} onGamePage={this.props.onGamePage}/>
           </Col>
         )}
       </Row>

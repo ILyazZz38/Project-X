@@ -7,13 +7,12 @@ const CardGames = (props) => {
 
     return (
         <div  className=' img-hover-scale'>
-            <NavLink to="../Game" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+            <NavLink to="../Game" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'} onClick={() =>props.onGamePage(props.game)}>
                 <div  style={{"position": "relative"}}>
                     <img
                         className="rounded shadow cursor-pointer"
                         src={props.game.capture.url}
                         style={{"width":"300px", "height":"180px"}}
-                        // onClick={() =>props.onGamePage(props.game)}
                         />
                     <div className="bg-black rounded bg-opacity-75" 
                         style={{"position": "absolute","left": "0","top": "0", "width": "300px"}} >
