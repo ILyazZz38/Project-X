@@ -21,7 +21,7 @@ export class GamePage extends Component {
                 </div>
               </Row>
               <Row className="gamepage-div-control-inputs">
-                <NormalComputerReq ramItem={this.props.ramItem}/>
+                <NormalComputerReq gameId = {this.props.game.id} ramItem={this.props.ramItem} processor = {this.props.processor} videocard = {this.props.videocard} pcram = {this.props.pcram}/>
               </Row>
               <Row className="p-5">
                 <div>

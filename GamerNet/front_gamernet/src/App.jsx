@@ -26,6 +26,10 @@ class ResponseData extends Component {
     super(props);
     this.state = {
         game: [],
+        user: [],
+        pc: [],
+        processor: [],
+        videocard: [],
         Games: [
           {
             id:'1',
@@ -273,12 +277,120 @@ class ResponseData extends Component {
           }
         ],
         GameItem: {},
+        isLoggedIn: false
     };
     this.onGamePage = this.onGamePage.bind(this)
   }
 
   componentDidMount() {
+    this.getUserId();
     this.getGames();
+  }
+
+  getUserId = async () => {
+    const  token = localStorage.getItem("token");
+    const res = await fetch("https://localhost:5001/api/Authenticate", {
+        method: "GET",
+        headers: {
+            "accept":"text/json",
+            "Authorization": "Bearer " + token,
+        }
+    })
+    .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+    .then((data) => {
+        this.setState({ user: data });
+        this.setState({ isLoggedIn: true });
+        console.log("Пользователь получен");
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+        this.setState({ isLoggedIn: false });
+      });
+      if (this.state.isLoggedIn & this.state.user.computerId != undefined){
+        this.getPC(this.state.user.computerId)
+      }
+  }
+
+  getPC = async (pcid) => {
+      const res = await fetch(`https://localhost:7150/api/Computers/${pcid}`, {
+        method: "GET",
+        headers: {
+            "accept":"text/json"
+        }
+    })
+    .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+    .then((data) => {
+        this.setState({ pc: data });
+        console.log("ПК пользователя получен");
+        
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+        this.setState({ requestFailed: true });
+      });
+      if (this.state.pc.processorId != undefined){
+        this.getPeocessor(this.state.pc.processorId)
+      }
+      else{
+        this.getPC(pcid)
+      }
+  }
+
+  getPeocessor = async (processorId) => {
+      const res = await fetch(`https://localhost:7150/api/Processors/${processorId}`, {
+        method: "GET",
+        headers: {
+            "accept":"text/json"
+        }
+    })
+    .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+    .then((data) => {
+        this.setState({ processor: data });
+        console.log("Процессор получен");
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+        this.setState({ requestFailed: true });
+      });
+      if (this.state.pc.videoCardId != undefined){
+        this.getCard(this.state.pc.videoCardId)
+      }
+      else{
+        this.getPeocessor(processorId)
+      }
+  }
+
+  getCard = async (CardId) => {
+      const res = await fetch(`https://localhost:7150/api/VideoCards/${CardId}`, {
+        method: "GET",
+        headers: {
+            "accept":"text/json"
+        }
+    })
+    .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+    .then((data) => {
+        this.setState({ videocard: data });
+        console.log("Видеокарта получена");
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
+        this.setState({ requestFailed: true });
+      });
+      if (this.state.pc.videoCardId == undefined){
+        this.getCard(CardId)
+      }
   }
 
   getGames = () => {
@@ -294,7 +406,7 @@ class ResponseData extends Component {
       })
     .then((data) => {
         this.setState({ game: data });
-        console.log("DATAGAME STORED");
+        console.log("Игры получены");
       })
       .catch((error) => {
         console.log('error: ' + error);
@@ -310,7 +422,7 @@ class ResponseData extends Component {
           <Route index element={<HomePage games={this.state.Games} onGamePage={this.onGamePage} gamesdata={this.state.game}/>}/>
           <Route path='Profile' element={<AccountPage ramItem={this.state.RAM}/>}/>
           <Route path='Games' element={<GamesPage onGamePage={this.onGamePage}/>} games={this.state.game} />
-          <Route path='Game' element={<GamePage game={this.state.GameItem} ramItem={this.state.RAM}/>} />
+          <Route path='Game' element={<GamePage game={this.state.GameItem} ramItem={this.state.RAM} processor = {this.state.processor} videocard = {this.state.videocard} pcram = {this.state.pc.ram}/>} />
           <Route path='*' element={<ErrorPage/>}/>
         </Route>
       </Routes>
