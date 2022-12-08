@@ -12,14 +12,14 @@ export class CardForGamePage extends Component {
           <Row>
             <div className="gamepage-div-img-params">
               <img
-                src={this.props.game.img}
+                src={this.props.game.capture.url}
                   className="gamepage-img-params rounded shadow"
                 />
             </div>
           </Row>
           <Row>
             <div className="gamepage-div-discription bg-opacity-75 shadow">
-              <p>{this.props.game.discription}</p>
+              <p>{this.props.game.description}</p>
             </div>
           </Row>
         </Row>

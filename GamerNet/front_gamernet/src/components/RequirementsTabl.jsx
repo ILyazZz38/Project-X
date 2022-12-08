@@ -18,26 +18,22 @@ export class RequirementsTabl extends Component {
 
                     <Col>
                         <Row>
-                        {this.props.requirements.cpu.map(el=>(
-                        <Col className="">
-                            <p>{el.name}</p> 
-                        </Col>
-                        ))}                                              
+                            <Col>
+                                <p>{this.props.requirements.firstProcessor.name}</p> 
+                            </Col>                                        
                         </Row>
                     </Col>
                 </Row>
 
-                <Row className="">
+                <Row>
                     <Col className="col-3">
                         <p className="name-params-tabl">Видеокарта:</p>
                     </Col>
                     <Col>
                         <Row>
-                        {this.props.requirements.videocards.map(el=>(
-                        <Col className="">
-                            <p>{el.name}</p> 
-                        </Col>
-                        ))}                                              
+                            <Col>
+                                <p>{this.props.requirements.firstCard.name}</p>
+                            </Col>                                        
                         </Row>
                     </Col>
                 </Row>
@@ -46,7 +42,7 @@ export class RequirementsTabl extends Component {
                     <Col>
                         <p className="name-params-tabl">Оперативная память:</p>
                     </Col>
-                    <Col className="margin-ram">
+                    <Col>
                         <p>{this.props.requirements.ram}</p>
                     </Col>
                 </Row>
@@ -63,11 +59,9 @@ export class RequirementsTabl extends Component {
 
                     <Col>
                         <Row>
-                        {this.props.recrements.cpu.map(el=>(
                         <Col className="">
-                            <p>{el.name}</p> 
-                        </Col>
-                        ))}                                              
+                            <p>{this.props.recrements.firstProcessor.name}</p> 
+                        </Col>                                        
                         </Row>
                     </Col>
                 </Row>
@@ -78,11 +72,9 @@ export class RequirementsTabl extends Component {
                     </Col>
                     <Col>
                         <Row>
-                        {this.props.recrements.videocards.map(el=>(
                         <Col className="">
-                            <p>{el.name}</p> 
-                        </Col>
-                        ))}                                              
+                            <p>{this.props.recrements.firstCard.name}</p> 
+                        </Col>                                   
                         </Row>
                     </Col>
                 </Row>
@@ -91,7 +83,7 @@ export class RequirementsTabl extends Component {
                     <Col>
                         <p className="name-params-tabl">Оперативная память:</p>
                     </Col>
-                    <Col className="margin-ram">
+                    <Col>
                         <p>{this.props.recrements.ram}</p>
                     </Col>
                 </Row>

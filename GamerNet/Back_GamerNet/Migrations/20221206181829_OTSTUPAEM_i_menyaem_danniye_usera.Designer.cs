@@ -3,6 +3,7 @@ using System;
 using Back_GamerNet.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Back_GamerNet.Migrations
 {
     [DbContext(typeof(ContextApplication))]
-    partial class ContextApplicationModelSnapshot : ModelSnapshot
+    [Migration("20221206181829_OTSTUPAEM_i_menyaem_danniye_usera")]
+    partial class OTSTUPAEM_i_menyaem_danniye_usera
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

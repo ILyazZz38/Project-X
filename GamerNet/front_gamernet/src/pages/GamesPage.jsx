@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { Col, Row } from "react-bootstrap";
-import Card from "../components/Card";
+import axios from "axios";
+import { Col, Row, Button } from "react-bootstrap";
+import CardGames from '../components/CardGames';
 
 export class GamesPage extends Component {
-    constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-      
-    }
+        PageNumber: 1
+    };
+    this.handleClick = this.handleClick.bind(this);
   }
-  static displayName = GamesPage.name;
+
+  handleClick(value) {
+    this.setState({ PageNumber: value });
+  }  
   
   render() {
     return (
@@ -38,20 +43,88 @@ export class GamesPage extends Component {
             </div>
           </Col>
           <Col>
-            <div className="overflow-auto">
-              <Row className="pb-5 mt-5 w-100 gx-3">
-                {this.props.games.map(el =>(
-                  <Col className="m-2 col-4" style={{"width":"400px", "height":"250px"}}>              
-                    <Card game={el} onGamePage={this.props.onGamePage}/>              
+            <div className="div-menu-for-sorting-fon mt-5">
+              <Row className="pb-5 gx-3">             
+                <Cards gameId={this.state.PageNumber} onGamePage={this.props.onGamePage}/>
+                <Row>
+                  <Col>
+                    <PageSelectorPrev
+                      PageNumber={this.state.PageNumber}
+                      PageSize={this.state.PageSize}
+                      handleClick={this.handleClick}
+                    />
                   </Col>
-                ))} 
+                  <Col>
+                    <PageSelectorNext
+                      PageNumber={this.state.PageNumber}
+                      PageSize={this.state.PageSize}
+                      handleClick={this.handleClick}
+                    />
+                  </Col>
+                </Row>
               </Row>
             </div>
-          </Col>  
+          </Col> 
         </Row>
+        
       </div>
     );
   }
 }
+function PageSelectorPrev(props) {
+
+  let gameprevId = props.PageNumber -1
+  return (
+    <div className="button-Prev">
+      <Button  variant="outline-light" onClick={() => props.handleClick(gameprevId)}>Предыдущая</Button>
+    </div>    
+  )
+}
+
+function PageSelectorNext(props) {
+
+  let gameNextId = props.PageNumber + 1
+  return (
+    <div className="button-Next">
+      <Button variant="outline-light" onClick={() => props.handleClick(gameNextId)}>Следующая</Button>
+    </div>    
+  )      
+}
 
 export default GamesPage;
+
+class Cards extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        game: []
+    };
+  }
+
+  componentDidMount() {
+    this.getGames(this.props.gameId);
+  }
+
+  componentDidUpdate() {
+    this.getGames(this.props.gameId);
+  }
+
+  getGames(gameId) {
+    axios
+      .get(`https://localhost:7150/api/Games?PageNumber=${gameId}&PageSize=4`)
+      .then(response => this.setState({ game: response.data }))
+      .catch(error => console.log(error));
+  }
+
+  render() {
+    return (
+      <Row className="pb-2 mt-1 w-100 gx-3">
+        { this.state.game.map(game =>
+          <Col className="m-3 col-3 mx-auto" style={{"width":"300px", "height":"180px"}}>
+            <CardGames game={game} onGamePage={this.props.onGamePage}/>
+          </Col>
+        )}
+      </Row>
+    )      
+  }
+}

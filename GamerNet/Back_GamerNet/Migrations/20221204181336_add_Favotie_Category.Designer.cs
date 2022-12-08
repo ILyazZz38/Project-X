@@ -3,6 +3,7 @@ using System;
 using Back_GamerNet.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Back_GamerNet.Migrations
 {
     [DbContext(typeof(ContextApplication))]
-    partial class ContextApplicationModelSnapshot : ModelSnapshot
+    [Migration("20221204181336_add_Favotie_Category")]
+    partial class add_Favotie_Category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -462,33 +464,6 @@ namespace Back_GamerNet.Migrations
                     b.ToTable("Processor");
                 });
 
-            modelBuilder.Entity("Models.UserInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("Birthday")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("Sex")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("photo")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("UserInfo");
-                });
-
             modelBuilder.Entity("Models.VideoCard", b =>
                 {
                     b.Property<int>("Id")
@@ -700,15 +675,6 @@ namespace Back_GamerNet.Migrations
                     b.Navigation("SecondCard");
 
                     b.Navigation("SecondProcessor");
-                });
-
-            modelBuilder.Entity("Models.UserInfo", b =>
-                {
-                    b.HasOne("Identity_Core.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("ApplicationUser");
                 });
 #pragma warning restore 612, 618
         }

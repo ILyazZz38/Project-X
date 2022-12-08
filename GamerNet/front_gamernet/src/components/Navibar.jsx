@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Nav, Navbar, Button, Modal, Form,} from 'react-bootstrap';
+import {Nav, Navbar, Button, Modal, Form, Col} from 'react-bootstrap';
 import { NavLink, Outlet } from 'react-router-dom';
 
 const Navibar = () => {
@@ -83,29 +83,34 @@ const Navibar = () => {
                 "Authorization": "Bearer " + token,
             }
         })
-        if (res.ok === true) {
-            const data = await res.json();
-            console.log(data);
-            console.log("Авторизован успешно");
+        if (res.ok != true) {
+            const Iduser = res;
+            setAuthuser(false)
         } else {
-            console.log("Ошибка");
+            setAuthuser(true)
         }
     }
 
-    function NoAuthButton(props) {
+    function NoAuthButton() {
         return <Button variant="outline-light" className="me-5" onClick={handleShow}>Войти</Button>;
     }
-    function AuthButton(props) {
-        return <>
-            <Button variant="outline-light" className="me-5">Профиль</Button>
-            <Button variant="outline-light" className="me-5" onClick={cleatToken}>Выйти</Button>
+    function AuthButton() {
+        return <>            
+            <NavLink to="Profile" className="account-navlink-navibar">
+                <img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' className="account-img-navibar"/>  
+            </NavLink>            
         </>;
     }
-    function AuthNoAuth(props) {
-        if (localStorage.getItem("token") != null) {
-          return <AuthButton />;
+
+    const AuthNoAuth = () => {
+        AuthLogin()
+        const user = authuser
+        if (user == true) {
+            return <AuthButton/>
         }
-        return <NoAuthButton />;   
+        else {
+            return <NoAuthButton/>
+        }
     }
     function cleatToken() {        
         localStorage.clear("token");
@@ -162,8 +167,7 @@ const Navibar = () => {
                         </Form.Group>
                         <Form.Group className="mt-3">
                             <p className="no-account" onClick={handleClose}>У меня нет аккаунта!</p>
-                            <Button variant="dark" className="modal-avt-button-centre" onClick={authorizatuser}>Войти</Button>
-                            <Button variant="dark" className="modal-avt-button-centre" onClick={AuthLogin}>Проверка</Button>                          
+                            <Button variant="dark" className="modal-avt-button-centre" onClick={authorizatuser}>Войти</Button>                      
                         </Form.Group>
                     </Form>
                 </Modal.Body>
