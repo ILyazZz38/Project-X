@@ -131,5 +131,12 @@ namespace Back_GamerNet.Controllers
         {
             return _context.Games.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<List<Game>>> GetCountGames()
+        {
+            return _context.Games.ToList();
+        }
     }
 }

@@ -1,13 +1,19 @@
 import React from 'react'
+import { responsivePropType } from 'react-bootstrap/esm/createUtilityClasses'
 import { propTypes } from 'react-bootstrap/esm/Image'
 import { GiSevenPointedStar } from "react-icons/gi"
 import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
-const CardGames = (props) => {
+const CardGames = props => {
+
+    const{
+        game = {}
+    } = props.game || {};
 
     return (
         <div  className=' img-hover-scale'>
-            <NavLink to="../Game" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'} onClick={() =>props.onGamePage(props.game)}>
+            <NavLink to="../Game" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'} onClick={() =>props.onGamePage(game)}>
                 <div  style={{"position": "relative"}}>
                     <img
                         className="rounded shadow cursor-pointer"
@@ -35,6 +41,15 @@ const CardGames = (props) => {
         </div>
     )
   }
+
+  CardGames.propTypes={
+    game: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        capture: PropTypes.shape({
+            url: PropTypes.string.isRequired
+        }).isRequired
+    }).isRequired
+  };
 
 export default CardGames;
     
