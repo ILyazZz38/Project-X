@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap'
 
-export class CardForGamePage extends Component {
+class CardForGamePage extends Component {
   render() {
     return (
       <div>

@@ -10,10 +10,6 @@ const ComputerReq = (props) => {
     const [Cpu, setCpu] = useState([])
     const [Card, setCard] = useState([])
 
-    // const setcpu = (mail) => setCpu(mail.target.value);
-    // const setvideo = (pas) => setVideo(pas.target.value);
-    // const setozy = (name) => setOzy(name.target.value);
-
     const AuthLogin = () => {
         const  token = localStorage.getItem("token");
         const res = fetch("https://localhost:5001/api/Authenticate", {

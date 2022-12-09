@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Carousel, Row, Col } from 'react-bootstrap';
 import CardForSlider from './CardForSlider';
 
-export class Slider extends Component {
+class Slider extends Component {
+    
   render() {
     return (
        <div className="div-bg-img">
