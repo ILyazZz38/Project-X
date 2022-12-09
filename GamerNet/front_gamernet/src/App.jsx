@@ -97,7 +97,7 @@ class ResponseData extends Component {
           }
         ],
         GameItem: {},
-        isLoggedIn: false
+        isLoggedIn: false,
     };
     this.onGamePage = this.onGamePage.bind(this)
   }
@@ -130,6 +130,37 @@ class ResponseData extends Component {
       });
       this.getGames()
   }
+
+  getGames = async () => {
+    const res = await fetch("https://localhost:7150/api/Games?PageNumber=1&PageSize=9", {
+        method: "GET",
+        headers: {
+            "accept":"text/json"
+        }
+    })
+    .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+    .then((data) => {
+        this.setState({ game: data });
+        console.log("База с играми загружена");
+      })
+      .catch((error) => {
+        console.log('Ошибка загрузки базы с играми: ' + error);
+      });
+      if(this.state.game != undefined){
+        if (this.state.isLoggedIn & this.state.user.computerId != undefined){
+          this.getPC(this.state.user.computerId)
+        }
+        else{
+            this.state.FavoriteGames = this.state.game
+        }
+      }
+      else{
+        this.getGames()
+      }
+}
 
   getPC = async (pcid) => {
       const res = await fetch(`https://localhost:7150/api/Computers/${pcid}`, {
@@ -213,42 +244,8 @@ class ResponseData extends Component {
       }
   }
 
-  getGames = () => {
-    const res = fetch("https://localhost:7150/api/Games?PageNumber=1&PageSize=4", {
-        method: "GET",
-        headers: {
-            "accept":"text/json"
-        }
-    })
-    .then((response) => {
-        if(!response.ok) throw new Error(response.status);
-        else return response.json();
-      })
-    .then((data) => {
-        this.setState({ game: data });
-        console.log("База с играми загружена");
-      })
-      .catch((error) => {
-        console.log('Ошибка загрузки базы с играми: ' + error);
-      });
-      if(this.state.game != undefined){
-        if (this.state.isLoggedIn & this.state.user.computerId != undefined){
-          this.getPC(this.state.user.computerId)
-        }
-        else{
-          if(this.state.FavoriteGames == undefined){
-            this.state.FavoriteGames = this.state.game
-          }
-        }
-      }
-      else{
-        this.getGames()
-      }
-      
-}
-
-getUserFavorite = () => {
-  const res = fetch(`https://localhost:7150/api/GamesFavorite?userID=${this.state.user.id}&PageNumber=1&PageSize=5`, {
+getUserFavorite = async () => {
+  const res = await fetch(`https://localhost:7150/api/GamesFavorite?userID=${this.state.user.id}&PageNumber=1&PageSize=5`, {
       method: "GET",
       headers: {
           "accept":"text/json"
