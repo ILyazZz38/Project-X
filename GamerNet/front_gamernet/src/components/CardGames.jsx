@@ -36,10 +36,11 @@ const CardGames = props => {
                             </p>                        
                         
                     </div>
-                </div>
-            </NavLink>       
-        </div>
-    )
+                </NavLink>       
+            </div>
+        )
+    }
+    
   }
 
   CardGames.propTypes={

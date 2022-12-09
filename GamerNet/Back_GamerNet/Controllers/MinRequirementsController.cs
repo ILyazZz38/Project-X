@@ -31,11 +31,12 @@ namespace Back_GamerNet.Controllers
 
         // GET: api/MinRequirements/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<bool[]>> GetMinRequirement(int id, int PCid)
+        public async Task<ActionResult<string[]>> GetMinRequirement(int id, int cardID, int processorID, int ram)
         {
-            bool[] canPlay = { false, false, false };
+            string[] canPlay = { "Процессор не подходит", "Видеокарта не подходит", "ОЗУ не подходит" };
             var Game = await _context.Games.FindAsync(id);
-            var Computer = await _context.Computers.FindAsync(PCid);
+            VideoCard UserCard = await _context.VideoCards.FindAsync(cardID);
+            Processor UserProc = await _context.Processor.FindAsync(processorID);
 
             Processor FirstProcessor = Game.minRequirement.FirstProcessor;
             Processor SecondProcessor = Game.minRequirement.SecondProcessor;
@@ -43,23 +44,23 @@ namespace Back_GamerNet.Controllers
             VideoCard SecondCard = Game.minRequirement.SecondCard;
 
             if (FirstProcessor != null)
-                if (Computer.Processor.Rank >= FirstProcessor.Rank)
-                    canPlay[0] = true;
+                if (UserProc.Rank >= FirstProcessor.Rank)
+                    canPlay[0] = "Процессор подходит";
             if (SecondProcessor != null)
-                if (Computer.Processor.Rank >= SecondProcessor.Rank)
-                    canPlay[0] = true;
+                if (UserProc.Rank >= SecondProcessor.Rank)
+                    canPlay[0] = "Процессор подходит";
 
             if (FirstCard != null)
-                if (Computer.VideoCard.Rank >= FirstCard.Rank)
-                    canPlay[1] = true;
+                if (UserCard.Rank >= FirstCard.Rank)
+                    canPlay[1] = "Видеокарта подходит";
             if (SecondCard != null)
-                if (Computer.VideoCard.Rank >= SecondCard.Rank)
-                    canPlay[1] = true;
+                if (UserCard.Rank >= SecondCard.Rank)
+                    canPlay[1] = "Видеокарта подходит";
 
-            if (Computer.RAM >= Game.minRequirement.RAM)
-                canPlay[2] = true;
+            if (ram >= Game.minRequirement.RAM)
+                canPlay[2] = "ОЗУ подходит";
             else
-                canPlay[2] = false;
+                canPlay[2] = "ОЗУ не подходит";
 
             if (Game.minRequirement == null)
             {

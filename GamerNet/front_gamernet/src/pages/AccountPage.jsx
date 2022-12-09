@@ -19,8 +19,7 @@ class ResponseData extends Component {
     }
 
     componentDidMount() {
-        this.getUserId();
-        
+        this.getUserId();       
     }
 
     getUserId = async () => {
@@ -38,13 +37,18 @@ class ResponseData extends Component {
           })
         .then((data) => {
             this.setState({ user: data });
-            console.log("DATA STORED");
-            this.getPC(this.state.user.computerId);
-          })
-          .catch((error) => {
-            console.log('error: ' + error);
-            this.setState({ requestFailed: true });
-          });
+        })
+        .catch((error) => {
+        console.log('Ошибка получения данных о пользователя: ' + error);
+        this.setState({ requestFailed: true });
+        })
+        if (this.state.user.computerId != undefined) {
+            this.getPC(this.state.user.computerId)
+            console.log("Данные о пользователе загружены")
+        }
+        else {
+            this.getUserId();
+        }
     }
 
     getPC = async (pcid) => {
@@ -57,20 +61,24 @@ class ResponseData extends Component {
         .then((response) => {
             if(!response.ok) throw new Error(response.status);
             else return response.json();
-          })
+        })
         .then((data) => {
             this.setState({ pc: data });
-            console.log("DATA STORED");
-            this.getPeocessor(this.state.pc.processorId)
-            this.getCard(this.state.pc.videoCardId)
-          })
-          .catch((error) => {
-            console.log('error: ' + error);
+        })
+        .catch((error) => {
+            console.log('Ошибка загрузки данных о ПК пользователя: ' + error);
             this.setState({ requestFailed: true });
-          });
+        })
+        if (this.state.pc.processorId != undefined) {
+            this.getProcessor(this.state.pc.processorId)
+            console.log("Данные о ПК пользователя загружены")
+        }
+        else {
+            this.getPC(pcid);
+        }
     }
 
-    getPeocessor = async (processorId) => {
+    getProcessor = async (processorId) => {
         const res = await fetch(`https://localhost:7150/api/Processors/${processorId}`, {
             method: "GET",
             headers: {
@@ -80,15 +88,21 @@ class ResponseData extends Component {
         .then((response) => {
             if(!response.ok) throw new Error(response.status);
             else return response.json();
-          })
+        })
         .then((data) => {
             this.setState({ processor: data });
-            console.log("DATA STORED");
-          })
-          .catch((error) => {
-            console.log('error: ' + error);
+        })
+        .catch((error) => {
+            console.log('Ошибка загрузки данных о процессоре: ' + error);
             this.setState({ requestFailed: true });
-          });
+        })
+        if (this.state.processor.name != undefined) {
+            this.getCard(this.state.pc.videoCardId)
+            console.log("Процессоре пользователя загружен")
+        }
+        else {
+            this.getProcessor(processorId);
+        }
     }
 
     getCard = async (CardId) => {
@@ -104,15 +118,18 @@ class ResponseData extends Component {
           })
         .then((data) => {
             this.setState({ videocard: data });
-            console.log("DATA STORED");
-          })
-          .catch((error) => {
-            console.log('error: ' + error);
+        })
+        .catch((error) => {
+            console.log('Ошибка загрузки данных о видеокарте: ' + error);
             this.setState({ requestFailed: true });
-          });
-    }
-
-    
+        })
+        if (this.state.videocard.name!= undefined) {
+            console.log("Видео карта пользователя загружена")
+        }
+        else {
+            this.getCard(CardId);
+        }
+    }    
 
     cleatToken() {        
         localStorage.clear("token");
@@ -122,30 +139,34 @@ class ResponseData extends Component {
     render() {
         return(
             <div className="accountpage-wrapper">  
-            <Row>
-                <Col>
-                    <Usercomputer ram = {this.props.ramItem} processor = {this.state.processor} videocard ={this.state.videocard} pcram = {this.state.pc.ram}/>
-                </Col>
+            <Row>                
                 <Col>
                     <Userinfo user = {this.state.user}/>
                 </Col>
                 <Col>
-                    <Favoritegenres/>
+                    <Usercomputer ram = {this.props.ramItem}
+                    processor = {this.state.processor}
+                    videocard ={this.state.videocard}
+                    pcram = {this.state.pc.ram}
+                    userPCId={this.state.user.computerId}
+                    />
                 </Col>
-            </Row>
-            <Button variant="outline-light" className="me-5" onClick={this.cleatToken}>Выйти</Button>
-            <p>{this.state.user.userName}</p>
-            <p>{this.state.user.email}</p>
-            <p>{this.state.user.phoneNumber}</p>
+                <Col>
+                    <Favoritegenres userId={this.state.user.id}/>
+                </Col>
+            </Row>            
         </div>
         );
     }
 }
 
-const AccountPage = (props) => {
+class AccountPage extends Component {
     
- return (
-    <ResponseData ramItem = {props.ramItem}/>
- )   
+ render() {
+    return (
+        <ResponseData ramItem = {this.props.ramItem}/>
+    ) 
+ }
+      
 }
 export default AccountPage;

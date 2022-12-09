@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap'
 
-export class RequirementsTabl extends Component {
+class RequirementsTabl extends Component {
   render() {
     return (
       <div>
