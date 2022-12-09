@@ -370,3 +370,26 @@ body {
     cursor: pointer;
     color: #000000;
 }
+.text-color-red {
+    margin-top: 10%;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+.text-min-responsemin {
+    text-align: center;
+    color: rgb(252, 124, 124);
+}
+.text-rec-responsemax {
+    text-align: center;
+    color: rgb(187, 255, 161);
+}
+.div-response-CompReq {
+    width: 45%;
+    margin-left: 5%;
+    background-color: #b1b1b1;
+    border-radius: 15px;
+}
+.margin-right-button {
+    margin-left: 10%;
+    margin-bottom: 5%;
+}
