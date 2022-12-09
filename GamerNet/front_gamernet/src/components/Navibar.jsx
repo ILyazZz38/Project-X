@@ -1,41 +1,93 @@
-import React, { useState } from 'react';
-import {Nav, Navbar, Button, Modal, Form, Col} from 'react-bootstrap';
+import React, { Component } from 'react';
+import {Nav, Navbar, Button, Modal, Form, Row, Col} from 'react-bootstrap';
 import { NavLink, Outlet } from 'react-router-dom';
 
-const Navibar = () => {
-    
-    const [show, setShow] = useState(false);
-    const [show2, setShow2] = useState(false);
-    const [cemail, setEmail] = useState("");
-    const [cpassword, setPassword] = useState("");
-    const [cname, setName] = useState("");
-    const [authuser, setAuthuser] = useState(false)
+class Navibar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: false,
+            show2: false,
+            cemail: "",
+            cpassword: "",
+            cname: "",
+            isLoggedIn: false
+        };
+        this.setShowOpen = this.setShowOpen.bind(this)
+        this.setShowClose = this.setShowClose.bind(this)
+        this.setShow2CloseShow = this.setShow2CloseShow.bind(this)
+        this.setShow2Open = this.setShow2Open.bind(this)
+        this.setShow2Close = this.setShow2Close.bind(this)
+    }
 
-    const handleClose = () => {setShow(false);setShow2(true)};
-    const handleShow = () => setShow(true);
-    const handleClose1 = () => setShow(false);    
-    const handleClose2 = () => setShow2(false);
-    const setemail = (mail) => setEmail(mail.target.value);
-    const setpassword = (pas) => setPassword(pas.target.value);
-    const setname = (name) => setName(name.target.value);
+    setemail(mail)  {
+        this.setState({cemail: mail})
+    }
+    setpassword(pas) {
+        this.setState({cpassword: pas})
+    }
+    setname(name) {
+        this.setState({cname: name})
+    }
 
-    const registeruser = async() => {
-        if (cemail.length > 0 && cpassword.length > 0 && cname.length > 0)
+    setShowOpen()  {
+        this.setState({show: true})
+    }
+    setShowClose()  {
+        this.setState({show: false})
+    }
+    setShow2CloseShow() {
+        this.setState({show: false});
+        this.setState({show2: true});
+    }
+    setShow2Open()  {
+        this.setState({show2: true})
+    }
+    setShow2Close()  {
+        this.setState({show2: false})
+    }
+
+    componentDidMount() {
+        this.AuthLogin();
+    }
+
+    AuthLogin = async () => {
+        const  token = localStorage.getItem("token");
+        const res = await fetch("https://localhost:5001/api/Authenticate", {
+            method: "GET",
+            headers: {
+                "accept":"text/plain",
+                "Authorization": "Bearer " + token,
+            }
+        })
+        if(res.ok === true) {
+            this.setState({ isLoggedIn: true });
+        } 
+        else  {
+            this.setState({ isLoggedIn: false });
+        }
+    }
+
+
+    registeruser = async() => {
+        if (this.state.cemail.length > 0 && 
+            this.state.cpassword.length > 0 &&
+            this.state.cname.length > 0)
         {
             const reg = await fetch("https://localhost:5001/api/Authenticate/register", {
                 method: "POST",
                 headers: {"accept": "*/*", "Content-Type": "application/json"},
                 body: JSON.stringify({
-                    username : cname,
-                    email : cemail,
-                    password : cpassword,
+                    username : this.state.cname,
+                    email : this.state.cemail,
+                    password : this.state.cpassword,
                 }),
             })
             if (reg.ok === true) {
                 const data = await reg.json()
                 console.log(data);
                 alert("Регистрация прошла успешно");
-                setShow2(false);
+                this.setState({show2: false});
             } else {
                 const errorMessage = await reg.json();
                 console.log("Ошибка:", errorMessage);
@@ -47,22 +99,24 @@ const Navibar = () => {
         }
     };
 
-    const authorizatuser = async() => {
-        if (cname.length > 0 && cpassword.length > 0)
+    authorizatuser = async() => {
+        if (this.state.cname.length > 0 &&
+            this.state.cpassword.length > 0)
         {
             const auth = await fetch("https://localhost:5001/api/Authenticate/login", {
                 method: "POST",
                 headers: {"accept": "*/*", "Content-Type": "application/json"},
                 body: JSON.stringify({
-                    username : cname,
-                    password : cpassword,
+                    username : this.state.cname,
+                    password : this.state.cpassword,
                 }),
             })
             if (auth.ok === true) {
                 const data = await auth.json()
                 localStorage.setItem("token", data.token);
                 console.log(data);
-                setShow (false);                 
+                this.setState({show: false});
+                window.location.reload();               
             } else {
                 const errorMessage = await auth.json();
                 console.log("errors", errorMessage);
@@ -73,133 +127,116 @@ const Navibar = () => {
             alert("Заполните все поля!")
         }
     }
+    
 
-    const AuthLogin = async () => {
-        const  token = localStorage.getItem("token");
-        const res = await fetch("https://localhost:5001/api/Authenticate", {
-            method: "GET",
-            headers: {
-                "accept":"text/plain",
-                "Authorization": "Bearer " + token,
-            }
-        })
-        if (res.ok != true) {
-            const Iduser = res;
-            setAuthuser(false)
-        } else {
-            setAuthuser(true)
-        }
-    }
+    render() {
+        const isLoggedIn = this.state.isLoggedIn;
+        let UserButton;
 
-    function NoAuthButton() {
-        return <Button variant="outline-light" className="me-5" onClick={handleShow}>Войти</Button>;
-    }
-    function AuthButton() {
-        return <>            
-            <NavLink to="Profile" className="account-navlink-navibar">
-                <img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' className="account-img-navibar"/>  
-            </NavLink>            
-        </>;
-    }
-
-    const AuthNoAuth = () => {
-        AuthLogin()
-        const user = authuser
-        if (user == true) {
-            return <AuthButton/>
-        }
+        if (isLoggedIn) {
+            UserButton =   
+            <div className="div-navlink-text-img">
+                <NavLink to="Profile" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                    <table>
+                        <tr>
+                            <td className="size-td-for-img">
+                                <img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' className="account-img-navibar"/>
+                            </td>
+                            <td>
+                                <h5 className="size-td-for-text">Профиль</h5>
+                            </td>
+                        </tr>
+                    </table>
+                </NavLink>
+            </div> 
+            
+        } 
         else {
-            return <NoAuthButton/>
+            UserButton = <Button variant="outline-light" className="me-5" onClick={this.setShowOpen}>Войти</Button>
         }
+        return (
+            <>
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                    <Navbar.Brand className="ms-5">
+                        <NavLink to="/" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                            <h1 className="navbar-brand m-1">
+                                <img src="https://cdn-icons-png.flaticon.com/512/7297/7297795.png"
+                                width="30"
+                                height="30"
+                                className="d-inline-block align-text-top"                            
+                                />
+                                GamerNet
+                            </h1>
+                        </NavLink>                    
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav"></Navbar.Toggle>
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="me-auto">
+                            <NavLink to="/"className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                                <h5 className="navlink-homepage">Главная</h5>
+                            </NavLink>
+                            <NavLink to="Games" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
+                                <h5 className="navlink-gamepage">Игры</h5>
+                            </NavLink>
+                        </Nav>
+                        <Nav>
+                            <div>{UserButton}</div>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+    
+                <Outlet/>
+    
+                <Modal show={this.state.show} onHide={this.setShowClose} className="modal-window-mardin">
+                    <Modal.Header closeButton>
+                        <Modal.Title className="modal-aut-text-centre">Авторизация</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group controlId="fromBasicLogin">
+                                <Form.Label>Login/Никнейм</Form.Label>
+                                <Form.Control type="login" value={this.state.cname} onChange={(text) => this.setname(text.target.value)} placeholder="Введите логин"/>
+                            </Form.Group>
+                            <Form.Group controlId="fromBasicPassword" className="mt-3">
+                                <Form.Label>Password/Пароль</Form.Label>
+                                <Form.Control type="password" value={this.state.cpassword} onChange={(text) => this.setpassword(text.target.value)} placeholder="Введите пароль"/>                          
+                            </Form.Group>
+                            <Form.Group className="mt-3">
+                                <p className="no-account" onClick={this.setShow2CloseShow}>У меня нет аккаунта!</p>
+                                <Button variant="dark" className="modal-avt-button-centre" onClick={this.authorizatuser}>Войти</Button>                      
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+    
+                <Modal show={this.state.show2} onHide={this.setShow2Close} className="modal-window-mardin">
+                    <Modal.Header closeButton>
+                        <Modal.Title className="modal-aut-text-centre">Регистрация</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group controlId="fromBasicEmail">
+                                <Form.Label>Электранная почта</Form.Label>
+                                <Form.Control type="email" value={this.state.cemail} onChange={(text) => this.setemail(text.target.value)} placeholder="Введите почту"/>
+                            </Form.Group>
+                            <Form.Group controlId="fromBasicLogin" className="mt-3">
+                                <Form.Label>Login/Никнейм</Form.Label>
+                                <Form.Control type="login" value={this.state.cname} onChange={(text) => this.setname(text.target.value)} placeholder="Введите логин"/>
+                            </Form.Group>
+                            <Form.Group controlId="fromBasicPassword" className="mt-3">
+                                <Form.Label>Password/Пароль</Form.Label>
+                                <Form.Control type="password" value={this.state.cpassword} onChange={(text) => this.setpassword(text.target.value)} placeholder="Введите пароль"/>
+                                <Form.Text className="text-muted">Пароль должен состоять минимум из 8 символов и  содержать 1 из знаков !"№;%:?*</Form.Text>                            
+                            </Form.Group>
+                            <Form.Group className="mt-3">
+                                <Button variant="dark" className="modal-reg-button-centre" onClick={this.registeruser}>Зарегистрироваться</Button>
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+            </>
+        )
     }
-    function cleatToken() {        
-        localStorage.clear("token");
-        window.location.reload();
-    }
-
-
-    return (
-        <>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand className="ms-5">
-                    <NavLink to="/" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
-                        <h1 className="navbar-brand m-1">
-                            <img src="https://cdn-icons-png.flaticon.com/512/7297/7297795.png"
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-text-top"                            
-                            />
-                            GamerNet
-                        </h1>
-                    </NavLink>                    
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav"></Navbar.Toggle>
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
-                        <NavLink to="/"className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
-                            <h5 className="navlink-homepage">Главная</h5>
-                        </NavLink>
-                        <NavLink to="Games" className={({isActive}) => isActive? 'link-active-yes': 'link-active-no'}>
-                            <h5 className="navlink-gamepage">Игры</h5>
-                        </NavLink>
-                    </Nav>
-                    <Nav>
-                        <AuthNoAuth/>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-
-            <Outlet/>
-
-            <Modal show={show} onHide={handleClose1} className="modal-window-mardin">
-                <Modal.Header closeButton>
-                    <Modal.Title className="modal-aut-text-centre">Авторизация</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="fromBasicLogin">
-                            <Form.Label>Login/Никнейм</Form.Label>
-                            <Form.Control type="login" value={cname} onChange={setname} placeholder="Введите логин"/>
-                        </Form.Group>
-                        <Form.Group controlId="fromBasicPassword" className="mt-3">
-                            <Form.Label>Password/Пароль</Form.Label>
-                            <Form.Control type="password" value={cpassword} onChange={setpassword} placeholder="Введите пароль"/>                          
-                        </Form.Group>
-                        <Form.Group className="mt-3">
-                            <p className="no-account" onClick={handleClose}>У меня нет аккаунта!</p>
-                            <Button variant="dark" className="modal-avt-button-centre" onClick={authorizatuser}>Войти</Button>                      
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-            </Modal>
-
-            <Modal show={show2} onHide={handleClose2} className="modal-window-mardin">
-                <Modal.Header closeButton>
-                    <Modal.Title className="modal-aut-text-centre">Регистрация</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="fromBasicEmail">
-                            <Form.Label>Электранная почта</Form.Label>
-                            <Form.Control type="email" value={cemail} onChange={setemail} placeholder="Введите почту"/>
-                        </Form.Group>
-                        <Form.Group controlId="fromBasicLogin" className="mt-3">
-                            <Form.Label>Login/Никнейм</Form.Label>
-                            <Form.Control type="login" value={cname} onChange={setname} placeholder="Введите логин"/>
-                        </Form.Group>
-                        <Form.Group controlId="fromBasicPassword" className="mt-3">
-                            <Form.Label>Password/Пароль</Form.Label>
-                            <Form.Control type="password" value={cpassword} onChange={setpassword} placeholder="Введите пароль"/>
-                            <Form.Text className="text-muted">Пароль должен состоять минимум из 8 символов и  содержать 1 из знаков !"№;%:?*</Form.Text>                            
-                        </Form.Group>
-                        <Form.Group className="mt-3">
-                            <Button variant="dark" className="modal-reg-button-centre" onClick={registeruser}>Зарегистрироваться</Button>
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-            </Modal>
-        </>
-    )
     
 }
 export default Navibar;

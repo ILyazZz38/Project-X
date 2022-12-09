@@ -1,6 +1,5 @@
 import {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from "axios";
 
 import {Routes, Route} from 'react-router-dom';
 
@@ -227,10 +226,10 @@ class ResponseData extends Component {
       })
     .then((data) => {
         this.setState({ game: data });
-        console.log("Игры получены");
+        console.log("База с играми загружена");
       })
       .catch((error) => {
-        console.log('error: ' + error);
+        console.log('Ошибка загрузки базы с играми: ' + error);
       });
       if(this.state.game != undefined){
         if (this.state.isLoggedIn & this.state.user.computerId != undefined){
