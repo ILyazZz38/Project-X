@@ -171,6 +171,7 @@ class NormalComputerReq extends Component {
             <Col>
                 <div class="form-floating mb-3 shadow">
                 <select class="form-select" id="formGroupExampleInputO" value={this.state.setProcessor} onChange={(text) => this.setprocessor(text.target.value)} placeholder="Процессор">
+                        <option selected>Выберите Процессор</option>
                         {this.state.processors.map(el=>(
                             <option value={el.id}> {el.name}</option>
                         ))}
@@ -181,6 +182,7 @@ class NormalComputerReq extends Component {
             <Col>
                 <div class="form-floating mb-3 shadow">
                 <select class="form-select" id="formGroupExampleInputO" value={this.state.setVideocard} onChange={(text) => this.setvideocard(text.target.value)} placeholder="Видеокарта">
+                        <option selected>Выберите Видеокарту</option>
                         {this.state.videocards.map(el=>(
                             <option value={el.id}>{el.name}</option>
                         ))}
@@ -191,6 +193,7 @@ class NormalComputerReq extends Component {
             <Col className="col-3">
                 <div class="form-floating mb-3 shadow">                    
                 <select class="form-select" id="formGroupExampleInputO" value={this.state.setRAM} onChange={(text) => this.setram(text.target.value)} placeholder="Оперативная память">
+                <option selected>Выберите ОЗУ</option>
                 {this.props.ramItem.map(el=>(
                     <option value={el.number}>{el.number} ГБ</option>
                 ))}
