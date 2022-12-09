@@ -97,7 +97,7 @@ class ResponseData extends Component {
           }
         ],
         GameItem: {},
-        isLoggedIn: false
+        isLoggedIn: false,
     };
     this.onGamePage = this.onGamePage.bind(this)
   }
@@ -164,6 +164,37 @@ class ResponseData extends Component {
       }
       
   }
+
+  getGames = async () => {
+    const res = await fetch("https://localhost:7150/api/Games?PageNumber=1&PageSize=9", {
+        method: "GET",
+        headers: {
+            "accept":"text/json"
+        }
+    })
+    .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+    .then((data) => {
+        this.setState({ game: data });
+        console.log("База с играми загружена");
+      })
+      .catch((error) => {
+        console.log('Ошибка загрузки базы с играми: ' + error);
+      });
+      if(this.state.game != undefined){
+        if (this.state.isLoggedIn & this.state.user.computerId != undefined){
+          this.getPC(this.state.user.computerId)
+        }
+        else{
+            this.state.FavoriteGames = this.state.game
+        }
+      }
+      else{
+        this.getGames()
+      }
+}
 
   getPC = async (pcid) => {
       const res = await fetch(`https://localhost:7150/api/Computers/${pcid}`, {
@@ -247,25 +278,25 @@ class ResponseData extends Component {
       }
   }
 
-  getUserFavorite = async () => {
-    const res = await fetch(`https://localhost:7150/api/GamesFavorite?userID=${this.state.user.id}&PageNumber=1&PageSize=5`, {
-        method: "GET",
-        headers: {
-            "accept":"text/json"
-        }
+getUserFavorite = async () => {
+  const res = await fetch(`https://localhost:7150/api/GamesFavorite?userID=${this.state.user.id}&PageNumber=1&PageSize=5`, {
+      method: "GET",
+      headers: {
+          "accept":"text/json"
+      }
+  })
+  .then((response) => {
+      if(!response.ok) throw new Error(response.status);
+      else return response.json();
     })
-    .then((response) => {
-        if(!response.ok) throw new Error(response.status);
-        else return response.json();
-      })
-    .then((data) => {
-        this.setState({ FavoriteGames: data });
-        console.log("Рекомендации получены");
-      })
-      .catch((error) => {
-        console.log('error: ' + error);
-      });
-  }
+  .then((data) => {
+      this.setState({ FavoriteGames: data });
+      console.log("Рекомендации получены");
+    })
+    .catch((error) => {
+      console.log('error: ' + error);
+    });
+}
 
   render() {
     return (
