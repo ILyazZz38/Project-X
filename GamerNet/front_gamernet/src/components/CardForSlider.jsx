@@ -9,7 +9,7 @@ class CardForSlider extends Component {
                 
                 <img
                 className="d-block w-75 rounded mx-auto"
-                src={this.props.game.img}
+                src={this.props.game.capture.url}
                 style={{"width":"400px", "height":"350px"}}
                 />
                 
@@ -29,7 +29,7 @@ class CardForSlider extends Component {
                         style={{"margin-left":"120px"}}>
                         <p class="text-center"
                             className="m-2"
-                            >{this.props.game.discription}
+                            >{this.props.game.description}
                         </p>
                     </div>                    
                 </div>                                           
