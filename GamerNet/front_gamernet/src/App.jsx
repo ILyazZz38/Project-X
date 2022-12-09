@@ -130,6 +130,40 @@ class ResponseData extends Component {
       });
       this.getGames()
   }
+  
+  getGames = async () => {
+    const res = await fetch("https://localhost:7150/api/Games?PageNumber=1&PageSize=4", {
+        method: "GET",
+        headers: {
+            "accept":"text/json"
+        }
+    })
+    .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+    .then((data) => {
+        this.setState({ game: data });
+        console.log("База с играми загружена");
+      })
+      .catch((error) => {
+        console.log('Ошибка загрузки базы с играми: ' + error);
+      });
+      if(this.state.game != undefined){
+        if (this.state.isLoggedIn & this.state.user.computerId != undefined){
+          this.getPC(this.state.user.computerId)
+        }
+        else{
+          if(this.state.FavoriteGames == undefined){
+            this.state.FavoriteGames = this.state.game
+          }
+        }
+      }
+      else{
+        this.getGames()
+      }
+      
+  }
 
   getGames = async () => {
     const res = await fetch("https://localhost:7150/api/Games?PageNumber=1&PageSize=9", {
@@ -263,7 +297,6 @@ getUserFavorite = async () => {
       console.log('error: ' + error);
     });
 }
-
 
   render() {
     return (

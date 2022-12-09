@@ -30,9 +30,9 @@ namespace Back_GamerNet.Controllers
 
         // GET: api/MaxRequirements/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<bool[]>> GetMaxRequirement(int id, int cardID, int processorID, int ram)
+        public async Task<ActionResult<string[]>> GetMaxRequirement(int id, int cardID, int processorID, int ram)
         {
-            bool[] canPlay = { false, false, false};
+            string[] canPlay = { "Процессор не подходит", "Видеокарта не подходит", "ОЗУ не подходит" };
             var Game = await _context.Games.FindAsync(id);
             VideoCard UserCard = await _context.VideoCards.FindAsync(cardID);
             Processor UserProc = await _context.Processor.FindAsync(processorID);
@@ -44,22 +44,22 @@ namespace Back_GamerNet.Controllers
 
             if (FirstProcessor != null)
                 if (UserProc.Rank >= FirstProcessor.Rank)
-                    canPlay[0] = true;
+                    canPlay[0] = "Процессор подходит";
             if (SecondProcessor != null)
                 if (UserProc.Rank >= SecondProcessor.Rank)
-                    canPlay[0] = true;
+                    canPlay[0] = "Процессор подходит";
 
             if (FirstCard != null)
                 if (UserCard.Rank >= FirstCard.Rank)
-                    canPlay[1] = true;
+                    canPlay[1] = "Видеокарта подходит";
             if (SecondCard != null)
                 if (UserCard.Rank >= SecondCard.Rank)
-                    canPlay[1] = true;
+                    canPlay[1] = "Видеокарта подходит";
 
             if (ram >= Game.minRequirement.RAM)
-                canPlay[2] = true;
+                canPlay[2] = "ОЗУ подходит";
             else
-                canPlay[2] = false;
+                canPlay[2] = "ОЗУ не подходит";
 
             if (Game.minRequirement == null)
             {
