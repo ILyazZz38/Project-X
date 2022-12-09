@@ -4,7 +4,8 @@ import CardForGamePage from '../components/CardForGamePage'
 import ComputerReq from '../components/ComputerReq'
 import RequirementsTabl from '../components/RequirementsTabl'
 
-export class GamePage extends Component {
+class GamePage extends Component {
+
   render() {
     return (
       <div className="gamepage-one-div">
@@ -31,9 +32,7 @@ export class GamePage extends Component {
               </Row>
             </Col>
           </Col>
-
         </Row>
-        
       </div>
       
     )

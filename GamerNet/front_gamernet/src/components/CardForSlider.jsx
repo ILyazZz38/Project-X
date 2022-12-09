@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class CardForSlider extends Component {
+class CardForSlider extends Component {
   render() {
     return (
         <div className="img-hover-scale">

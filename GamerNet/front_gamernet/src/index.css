@@ -37,19 +37,26 @@ body {
     margin-top: 10%;
     margin-left: 40px;
 }
-.account-navlink-navibar {
-    width: 10%;
-    height: 10%;
-    margin-left: 70%;
-}
-.account-img-navibar {
-    width: 100%;
-    height: 100%;
+.div-navlink-text-img {
+    margin-left: 50%;
     transition: 0.05s;
 }
-.account-img-navibar:hover {
+.div-navlink-text-img:hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+.account-img-navibar {
+    margin-left: 60%;
+    width: 100%;
+    height: 100%;
+}
+.size-td-for-img {
+    height: 100%;
+    width: 17%;
+}
+.size-td-for-text {
+    margin-left: 17%;
+    margin-top: 2%;
 }
 .div-menu-for-sorting{
     width: 300px;
@@ -251,11 +258,12 @@ body {
 }
 .div-block-usercomputer {
     background-color: #0000002a;
-    width: 50%;
+    width: 100%;
     height: auto;
     margin-left: 5%;
     margin-top: 5%;
     border-radius: 15px;
+    padding-bottom: 5%;
 }
 .div-wrapper-usercomputer {
     margin-left: 5%;
@@ -283,4 +291,82 @@ body {
     width: 15%;
     margin-left: auto;
     margin-right: auto;
+}
+.div-block-userinfo {
+    background-color: #0000002a;
+    width: 100%;
+    height: auto;
+    margin-left: 5%;
+    margin-top: 5%;
+    border-radius: 15px;
+    padding-bottom: 5%;
+}
+.div-wrapper-userinfo {
+    margin-left: 5%;
+    padding: 2%;
+}
+.img-account-page {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+.img-exit-account-page {
+    width: 10%;
+    height: 10%;
+    color: #ffffff;
+    margin-left: 85%;
+    bottom: 0;
+}
+.img-exit-account-page:hover {
+    cursor: pointer;
+    color: #000000;
+}
+.text-align {
+    text-align: center;
+}
+.settings-img-button-account-page {
+    color: #ffffff;
+    width: 10%;
+    height: 10%;
+    margin-left: 85%;
+}
+.settings-img-button-account-page:hover {
+    cursor: pointer;
+    color: #000000;
+}
+.button-usercomputer-save-setting {
+    margin-left: 30%;
+    margin-right: 25%;
+}
+.plus-genres-account {
+    position: absolute;
+    width: 3%;
+    height: 3%;
+    color: rgb(250, 199, 199);
+    transition: 0.5s;
+    margin-top: 0.7%;
+}
+.plus-genres-account:hover {
+    color: rgb(255, 103, 103);
+    cursor: pointer;
+}
+.text-genres-account {
+    position: relative;
+    margin-left: 30%;
+    margin-top: 10%;
+}
+.button-favoritegenres-save-setting {
+    width: 30%;
+    margin-left: 30%;
+    margin-right: 25%;
+}
+.settings-img-button-favoritegenres-page {
+    color: #ffffff;
+    width: 13%;
+    height: 13%;
+    margin-left: 80%;
+}
+.settings-img-button-favoritegenres-page:hover {
+    cursor: pointer;
+    color: #000000;
 }
