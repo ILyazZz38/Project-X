@@ -222,6 +222,7 @@ class Navibar extends Component {
                             <Form.Group controlId="fromBasicLogin" className="mt-3">
                                 <Form.Label>Login/Никнейм</Form.Label>
                                 <Form.Control type="login" value={this.state.cname} onChange={(text) => this.setname(text.target.value)} placeholder="Введите логин"/>
+                                <Form.Text className="text-muted">Логин должен состоять минимум из 8 символов A-Z</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="fromBasicPassword" className="mt-3">
                                 <Form.Label>Password/Пароль</Form.Label>

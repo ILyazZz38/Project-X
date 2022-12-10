@@ -13,7 +13,7 @@ export class HomePage extends Component {
         <div className="d-flex bg-black rounded w-50 mx-auto bg-opacity-75 mt-5 ">
           <h3 className="mx-auto p-1">ИГРЫ ПО ВАШИМ ПРЕДПОЧТЕНИЯМ</h3>
         </div>
-        <Slider games={this.props.games}/>
+        <Slider games={this.props.games} onGamePage={this.props.onGamePage}/>
         <div className="d-flex bg-black rounded w-25 mx-auto bg-opacity-75">
           <h3 className="mx-auto p-1">ПОПУЛЯРНЫЕ ИГРЫ</h3>
         </div>

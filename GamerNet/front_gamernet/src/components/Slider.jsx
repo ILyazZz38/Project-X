@@ -12,7 +12,7 @@ class Slider extends Component {
                 <Carousel.Item>                        
                     <Row className="mt-4 mx-auto gx-3">                                                        
                         <Col>
-                            <CardForSlider game={el}/>
+                            <CardForSlider game={el} onGamePage={this.props.onGamePage}/>
                         </Col>                                                                                    
                     </Row>
                 </Carousel.Item>

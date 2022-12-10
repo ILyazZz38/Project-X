@@ -99,7 +99,7 @@ class Pagination extends Component {
 
     return (
       <Fragment>
-        <nav aria-label="Countries Pagination">
+        <nav aria-label="Countries Pagination" className="pagination-div">
           <ul className="pagination">
             { pages.map((page, index) => {
 

@@ -72,41 +72,17 @@ export class GamesPage extends Component {
     const {currentGames, currentPage, totalPages } = this.state;
     //const countGames = allGames.length;
     return (
-      <div>
+      <div className="games-pages-div-wrapper">
         <Row>
-          <Col className="col-4">
-            <div className='div-menu-for-sorting'>
-              <div className='div-menu-for-sorting-fon'>
-                <div className='razdel-one'>
-                  <h3>Поиск по названию</h3>
-                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Название игры"/>
-                </div>
-
-                <div className='razdel-two'>
-                  <h3>Фильры</h3>
-                  <select class="form-select" aria-label="Пример выбора по умолчанию">
-                    <option selected>Жанр</option>
-                    <option value="1">Один</option>
-                    <option value="2">Два</option>
-                    <option value="3">Три</option>
-                  </select>
-                  <h5>Оценка игры</h5>
-                  <input type="range" class="form-range" min="0" max="5" id="customRange2"/>
-                </div>
-              </div>
-            </div>
-          </Col>
           <Col>
             <div className="div-menu-for-sorting-fon mt-5">
-            
               <Row className="pb-5 gx-3">             
-              
                 <Row>
-                { this.state.currentGames.map(Game => 
-                <Col className="m-3 col-3 mx-auto" style={{"width":"300px", "height":"180px"}}>
-                  <CardGames game={Game} onGamePage={this.props.onGamePage}/>
-                </Col> ) }
-                
+                  { this.state.currentGames.map(Game => 
+                    <Col className="m-3 col-3 mx-auto" style={{"width":"300px", "height":"180px"}}>
+                      <CardGames game={Game} onGamePage={this.props.onGamePage}/>
+                    </Col> 
+                  )}
                 </Row>
                 <Pagination totalRecords = {20} pageLimit={9} pageNeighbours={2} onPageChanged={this.onPageChanged}  />
               </Row>

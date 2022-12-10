@@ -64,9 +64,16 @@ body {
     margin: 10% 5%;
 }
 .div-menu-for-sorting-fon{
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
     background-color: grey;
     padding: 10px;
     border-radius: 15px;
+}
+.pagination-div {
+    margin-left: 45%;
+    margin-top: 3%;
 }
 .razdel-one {
     height: 300px;
@@ -76,12 +83,6 @@ body {
 }
 .col-games-page {
     width: 25%;
-}
-.img-hover-scale {
-    transition: 0.5s;
-}
-.img-hover-scale:hover {
-    transform: scale(1.07);
 }
 .cursor-pointer {
     cursor: pointer;
@@ -392,4 +393,8 @@ body {
 .margin-right-button {
     margin-left: 10%;
     margin-bottom: 5%;
+}
+.games-pages-div-wrapper {
+    width: 100%;
+    height: 100vmax;
 }
