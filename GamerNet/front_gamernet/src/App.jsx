@@ -300,7 +300,7 @@ getUserFavorite = async () => {
 
   render() {
     return (
-      <div className="app-one-div-css">
+      <div className="app-one-div-css pb-5">
       <Routes>
         <Route path='/' element={<Navibar/>}>
           <Route index element={<HomePage games={this.state.FavoriteGames} onGamePage={this.onGamePage} gamesdata={this.state.game}/>}/>
